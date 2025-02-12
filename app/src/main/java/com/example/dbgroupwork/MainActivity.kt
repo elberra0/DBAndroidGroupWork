@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             DBGroupWorkTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = "Androaid",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

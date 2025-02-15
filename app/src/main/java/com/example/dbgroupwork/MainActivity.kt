@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -39,15 +40,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DBGroupWorkTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(modifier = Modifier.fillMaxSize(), containerColor = Color(0xFF2C3E50)) { innerPadding ->
                     Greeting(
                         name = "Androaid",
                         modifier = Modifier.padding(innerPadding)
                     )
-
+                    MainScreen()
                 }
             }
-            MainScreen()
         }
     }
 }
@@ -80,7 +80,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 @Composable
 fun HomeScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Box(modifier = Modifier.fillMaxSize()
+        .background(Color(0xFF2C3E50)), contentAlignment = Alignment.Center) {
         Text("Pantalla de Inicio", fontSize = 24.sp)
     }
 }
@@ -92,7 +93,8 @@ fun ProfileScreen() {
 
 @Composable
 fun SettingsScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Box(modifier = Modifier.fillMaxSize()
+        .background(Color(0xFF2C3E50)), contentAlignment = Alignment.Center) {
         Text("Pantalla de Ajustes", fontSize = 24.sp)
     }
 }
@@ -138,6 +140,7 @@ fun MainScreen() {
             navController = navController,
             startDestination = BottomNavBarItem.Home.route,
             modifier = Modifier.padding(paddingValues)
+                .background(Color(0xFF2C3E50))
         ) {
             composable(BottomNavBarItem.Home.route) { HomeScreen() }
             composable(BottomNavBarItem.Profile.route) { ProfileScreen() }

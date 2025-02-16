@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.CheckCircle
@@ -63,13 +65,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DBGroupWorkTheme {
-                Scaffold(modifier = Modifier.fillMaxSize(), containerColor = Color(0xFF2C3E50)) { innerPadding ->
-                    Greeting(
-                        name = "Androaid",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                    MainScreen()
-                }
+                MainScreen()
             }
         }
     }
@@ -117,13 +113,16 @@ fun ProfileScreen() {
 @Composable
 fun SettingsScreen() {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        var email by remember { mutableStateOf("") }
         var username by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         var confirmPassword by remember { mutableStateOf("") }
+
         Text(
             text = "Settings",
             fontSize = 30.sp,
@@ -142,7 +141,7 @@ fun SettingsScreen() {
         )
 
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(username, onValueChange = {username = it}, "New Email", Icons.Filled.Email,true)
+        SettingsTextField(email, onValueChange = {email = it}, "New Email", Icons.Filled.Email,true)
         Spacer(modifier = Modifier.height(20.dp))
         SettingsTextField(username, onValueChange = {username = it}, "New Username", Icons.Filled.AccountCircle,true)
         Spacer(modifier = Modifier.height(20.dp))

@@ -5,9 +5,22 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -29,7 +42,17 @@ import com.google.maps.android.compose.rememberMarkerState
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -93,10 +116,72 @@ fun ProfileScreen() {
 
 @Composable
 fun SettingsScreen() {
-    Box(modifier = Modifier.fillMaxSize()
-        .background(Color(0xFF2C3E50)), contentAlignment = Alignment.Center) {
-        Text("Pantalla de Ajustes", fontSize = 24.sp)
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        var username by remember { mutableStateOf("") }
+        var password by remember { mutableStateOf("") }
+        var confirmPassword by remember { mutableStateOf("") }
+        Text(
+            text = "Settings",
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(bottom = 5.dp)
+        )
+
+        Text(
+            text = "Change your user information",
+            fontSize = 15.sp,
+            color = Color.Gray,
+            textAlign = TextAlign.Left,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+        SettingsTextField(username, onValueChange = {username = it}, "New Email", Icons.Filled.Email,true)
+        Spacer(modifier = Modifier.height(20.dp))
+        SettingsTextField(username, onValueChange = {username = it}, "New Username", Icons.Filled.AccountCircle,true)
+        Spacer(modifier = Modifier.height(20.dp))
+        SettingsTextField(password, onValueChange = {password = it}, "New Password",Icons.Filled.Lock,true)
+        Spacer(modifier = Modifier.height(20.dp))
+        SettingsTextField(confirmPassword, onValueChange = {confirmPassword = it}, "Confirm New Password",Icons.Filled.CheckCircle,false)
+        Spacer(modifier = Modifier.height(50.dp))
+
+        Button(
+            onClick = { /* Llamar a funcion que guarde datos que se han cambiado */ },
+            modifier = Modifier
+                .fillMaxWidth(0.5f)
+                .height(50.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.White,
+                contentColor = Color(0xFF2C3E50)
+            )
+
+        ) {
+            Text(text = "Validate", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+        }
+
     }
+}
+
+@Composable
+fun SettingsTextField(value:String,onValueChange: (String) -> Unit,placeHolderText:String,icon: ImageVector, enabled:Boolean){
+    TextField(
+        value = value,
+        onValueChange = onValueChange,
+        placeholder = { Text(placeHolderText, fontSize = 14.sp) },
+        enabled = enabled,
+        textStyle = TextStyle(fontSize = 14.sp),
+        leadingIcon = { Icon(imageVector = icon, contentDescription = null) },
+        modifier = Modifier.fillMaxWidth(0.70f)
+            .height(50.dp),
+        singleLine = true,
+        shape = RoundedCornerShape(8.dp)
+    )
 }
 
 @Composable

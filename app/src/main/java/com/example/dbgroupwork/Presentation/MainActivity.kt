@@ -1,4 +1,4 @@
-package com.example.dbgroupwork
+package com.example.dbgroupwork.Presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -33,7 +33,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.dbgroupwork.Presentation.BottomNavBarItem
 import com.example.dbgroupwork.Presentation.Theme.DBGroupWorkTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -65,7 +64,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DBGroupWorkTheme {
-                MainScreen()
+                AppNavHost()
+                //MainScreen()
             }
         }
     }
@@ -73,7 +73,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyGoogleMap() {
-    val singapore = LatLng(1.3521, 103.8198) // Coordenadas de ejemplo (Singapur)
+    val singapore = LatLng(1.3521, 103.8198)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(singapore, 12f)
     }
@@ -89,6 +89,7 @@ fun MyGoogleMap() {
         )
     }
 }
+
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(

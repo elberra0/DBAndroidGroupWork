@@ -1,4 +1,4 @@
-package com.example.dbgroupwork.Presentation
+package com.example.dbgroupwork.Presentation.Views
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

@@ -1,4 +1,4 @@
-package com.example.dbgroupwork.Presentation
+package com.example.dbgroupwork.Presentation.Views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,9 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -33,11 +31,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-class SignupView {
+class LoginView {
 }
+
 @Composable
-fun SignUpScreen(navController: NavController){
-    SignUpTopText()
+fun LoginScreen(navController: NavController){
+    LogInTopText()
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -46,23 +45,17 @@ fun SignUpScreen(navController: NavController){
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        var email by remember { mutableStateOf("") }
+        var emailOrUsername by remember { mutableStateOf("") }
         var username by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
-        var confirmPassword by remember { mutableStateOf("") }
 
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(email, onValueChange = {email = it}, "Email", Icons.Filled.Email,true)
+        SettingsTextField(emailOrUsername, onValueChange = {emailOrUsername = it}, "Username/email", Icons.Filled.AccountBox,true)
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(username, onValueChange = {username = it}, "Username", Icons.Filled.AccountCircle,true)
-        Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(password, onValueChange = {password = it}, "Password",Icons.Filled.Lock,true)
-        Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(confirmPassword, onValueChange = {confirmPassword = it}, "Confirm Password",Icons.Filled.CheckCircle,false)
+        SettingsTextField(username, onValueChange = {username = it}, "Password", Icons.Filled.Lock,true)
         Spacer(modifier = Modifier.height(50.dp))
 
         Button(
-            onClick = { navController.navigate("login") },
+            onClick = {navController.navigate("main") },
             modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .height(50.dp),
@@ -72,14 +65,14 @@ fun SignUpScreen(navController: NavController){
             )
 
         ) {
-            Text(text = "Sign up!", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+            Text(text = "Log in!", fontSize = 16.sp, fontWeight = FontWeight.Bold)
         }
         Spacer(modifier = Modifier.height(50.dp))
-        GotoLoginScreen(navController)
+        GoToRegisterScreen(navController)
     }
 }
 @Composable
-fun SignUpTopText(){
+fun LogInTopText(){
     Box(modifier = Modifier.fillMaxSize()){
         Column(modifier = Modifier
             .align(Alignment.TopStart)
@@ -88,7 +81,7 @@ fun SignUpTopText(){
             Spacer(modifier = Modifier.height(100.dp))
 
             Text(
-                text = "Sign up",
+                text = "Log in",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
@@ -97,7 +90,7 @@ fun SignUpTopText(){
             )
 
             Text(
-                text = "Sign up to access FIT APP services",
+                text = "Log in with your username or email",
                 fontSize = 15.sp,
                 color = Color.Gray,
                 textAlign = TextAlign.Left,
@@ -108,21 +101,21 @@ fun SignUpTopText(){
 }
 
 @Composable
-fun GotoLoginScreen(navController: NavController){
+fun GoToRegisterScreen(navController: NavController){
     Row(modifier = Modifier,
         verticalAlignment = Alignment.CenterVertically){
         Text(
-            text = "Already have an account? ",
+            text = "Don't have an account? ",
             fontSize = 15.sp,
             color = Color.Gray,
             textAlign = TextAlign.Left
         )
-        Button(onClick = { navController.navigate("login") },
+        Button(onClick = {navController.navigate("register") },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
                 contentColor = Color(0xFF2C3E50)
             )) {
-            Text(text = "Log in",
+            Text(text = "Sign up",
                 fontSize = 15.sp,
                 color = Color(0xFF007AFF),
                 textAlign = TextAlign.Left,

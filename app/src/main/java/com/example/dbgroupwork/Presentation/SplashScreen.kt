@@ -48,7 +48,7 @@ fun AppNavHost() {
         composable("splash") {
             SplashScreen(
                 navigateToMainScreen = {
-                    navController.navigate("register") {
+                    navController.navigate("login") {
                         popUpTo("splash") { inclusive = true }
                     }
                 }
@@ -58,10 +58,10 @@ fun AppNavHost() {
             MainScreen()
         }
         composable("login") {
-            LoginScreen()
+            LoginScreen(navController)
         }
         composable("register") {
-            SignUpScreen()
+            SignUpScreen(navController)
         }
     }
 }

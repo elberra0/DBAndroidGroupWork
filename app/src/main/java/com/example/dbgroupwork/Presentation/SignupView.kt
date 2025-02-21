@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Email
@@ -32,11 +31,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 class SignupView {
 }
 @Composable
-fun SignUpScreen(){
+fun SignUpScreen(navController: NavController){
     SignUpTopText()
 
     Column(
@@ -62,7 +62,7 @@ fun SignUpScreen(){
         Spacer(modifier = Modifier.height(50.dp))
 
         Button(
-            onClick = { /* Llamar a funcion que guarde datos que se han cambiado */ },
+            onClick = { navController.navigate("login") },
             modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .height(50.dp),
@@ -75,7 +75,7 @@ fun SignUpScreen(){
             Text(text = "Sign up!", fontSize = 16.sp, fontWeight = FontWeight.Bold)
         }
         Spacer(modifier = Modifier.height(50.dp))
-        GotoLoginScreen()
+        GotoLoginScreen(navController)
     }
 }
 @Composable
@@ -108,7 +108,7 @@ fun SignUpTopText(){
 }
 
 @Composable
-fun GotoLoginScreen(){
+fun GotoLoginScreen(navController: NavController){
     Row(modifier = Modifier,
         verticalAlignment = Alignment.CenterVertically){
         Text(
@@ -117,7 +117,7 @@ fun GotoLoginScreen(){
             color = Color.Gray,
             textAlign = TextAlign.Left
         )
-        Button(onClick = { /* Ir a la vista de Log in */ },
+        Button(onClick = { navController.navigate("login") },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
                 contentColor = Color(0xFF2C3E50)

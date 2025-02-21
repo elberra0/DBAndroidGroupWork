@@ -29,12 +29,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 class LoginView {
 }
 
 @Composable
-fun LoginScreen(){
+fun LoginScreen(navController: NavController){
     LogInTopText()
 
     Column(
@@ -54,7 +55,7 @@ fun LoginScreen(){
         Spacer(modifier = Modifier.height(50.dp))
 
         Button(
-            onClick = { /* Llamar a funcion que guarde datos que se han cambiado */ },
+            onClick = {navController.navigate("main") },
             modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .height(50.dp),
@@ -67,7 +68,7 @@ fun LoginScreen(){
             Text(text = "Log in!", fontSize = 16.sp, fontWeight = FontWeight.Bold)
         }
         Spacer(modifier = Modifier.height(50.dp))
-        GoToRegisterScreen()
+        GoToRegisterScreen(navController)
     }
 }
 @Composable
@@ -100,7 +101,7 @@ fun LogInTopText(){
 }
 
 @Composable
-fun GoToRegisterScreen(){
+fun GoToRegisterScreen(navController: NavController){
     Row(modifier = Modifier,
         verticalAlignment = Alignment.CenterVertically){
         Text(
@@ -109,7 +110,7 @@ fun GoToRegisterScreen(){
             color = Color.Gray,
             textAlign = TextAlign.Left
         )
-        Button(onClick = { /* Ir a la vista de Registro */ },
+        Button(onClick = {navController.navigate("register") },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
                 contentColor = Color(0xFF2C3E50)

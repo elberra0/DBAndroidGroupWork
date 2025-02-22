@@ -57,6 +57,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.dbgroupwork.Presentation.ViewModels.RequestMapPermissions
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,24 +72,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun MyGoogleMap() {
-    val singapore = LatLng(1.3521, 103.8198)
-    val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(singapore, 12f)
-    }
 
-    GoogleMap(
-        modifier = Modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState
-    ) {
-        Marker(
-            state = rememberMarkerState(position = singapore),
-            title = "Marker en Singapur",
-            snippet = "¡Aquí estamos!"
-        )
-    }
-}
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
@@ -108,7 +92,7 @@ fun HomeScreen() {
 
 @Composable
 fun ProfileScreen() {
-    MyGoogleMap()
+    GoogleMapView()
 }
 
 @Composable

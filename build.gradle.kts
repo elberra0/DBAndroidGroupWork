@@ -7,6 +7,8 @@ plugins {
 }
 buildscript {
     dependencies {
-        classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
+        classpath(libs.secrets.gradle.plugin)
+        classpath ("com.android.tools.build:gradle:8.1.2")
     }
+
 }

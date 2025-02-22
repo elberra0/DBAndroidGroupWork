@@ -21,7 +21,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    buildFeatures {
+        buildConfig = true
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -78,5 +80,8 @@ dependencies {
     implementation(libs.play.services.maps)
     implementation(libs.androidx.navigation.compose.v276)
     implementation(libs.material3)
+    implementation("com.google.maps.android:maps-compose:2.11.0")
+    implementation("com.google.maps.android:maps-compose-utils:2.11.0")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 
 }

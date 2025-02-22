@@ -57,22 +57,27 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.dbgroupwork.Data.DataStoreManager
+import com.example.dbgroupwork.Data.Repository.UserRepositoryImpl
+import com.example.dbgroupwork.Domain.UseCaes.SaveUserDataUseCase
 import com.example.dbgroupwork.Presentation.ViewModels.RequestMapPermissions
+import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val dataStoreManager = DataStoreManager(applicationContext)
+        val userRepository = UserRepositoryImpl(dataStoreManager)
+        val saveUserDataUseCase = SaveUserDataUseCase(userRepository)
+        val viewModel = SignupViewModel(saveUserDataUseCase, userRepository)
         enableEdgeToEdge()
         setContent {
             DBGroupWorkTheme {
-                AppNavHost()
-                //MainScreen()
+                AppNavHost(viewModel)
             }
         }
     }
 }
-
-
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
@@ -222,6 +227,7 @@ fun MainScreen() {
 @Composable
 fun GreetingPreview() {
     DBGroupWorkTheme {
-        Greeting("Android")
+        //Greeting("Android")
+        MainScreen()
     }
 }

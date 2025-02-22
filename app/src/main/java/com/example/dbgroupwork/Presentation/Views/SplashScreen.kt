@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 import kotlinx.coroutines.delay
 
 @Composable
@@ -41,7 +42,7 @@ fun SplashScreen(navigateToMainScreen: () -> Unit){
 }
 
 @Composable
-fun AppNavHost() {
+fun AppNavHost(signupViewModel: SignupViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "splash", modifier = Modifier.background(Color(0xFF2C3E50))) {
@@ -61,7 +62,7 @@ fun AppNavHost() {
             LoginScreen(navController)
         }
         composable("register") {
-            SignUpScreen(navController)
+            SignUpScreen(navController, signupViewModel)
         }
     }
 }

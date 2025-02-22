@@ -20,6 +20,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,11 +33,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 
 class SignupView {
 }
 @Composable
-fun SignUpScreen(navController: NavController){
+fun SignUpScreen(navController: NavController, viewModel:SignupViewModel){
     SignUpTopText()
 
     Column(
@@ -46,23 +48,23 @@ fun SignUpScreen(navController: NavController){
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        var email by remember { mutableStateOf("") }
-        var username by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
+        val email by viewModel.email.collectAsState()
+        val username by viewModel.username.collectAsState()
+        val password by viewModel.password.collectAsState()
         var confirmPassword by remember { mutableStateOf("") }
 
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(email, onValueChange = {email = it}, "Email", Icons.Filled.Email,true)
+        SettingsTextField(email, onValueChange = { viewModel.onEmailChanged(it) }, "Email", Icons.Filled.Email,true)
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(username, onValueChange = {username = it}, "Username", Icons.Filled.AccountCircle,true)
+        SettingsTextField(username, onValueChange = { viewModel.onUsernameChanged(it) }, "Username", Icons.Filled.AccountCircle,true)
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(password, onValueChange = {password = it}, "Password",Icons.Filled.Lock,true)
+        SettingsTextField(password, onValueChange = { viewModel.onPasswordChanged(it) }, "Password",Icons.Filled.Lock,true)
         Spacer(modifier = Modifier.height(20.dp))
         SettingsTextField(confirmPassword, onValueChange = {confirmPassword = it}, "Confirm Password",Icons.Filled.CheckCircle,false)
         Spacer(modifier = Modifier.height(50.dp))
 
         Button(
-            onClick = { navController.navigate("login") },
+            onClick = { viewModel.saveUserData()},
             modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .height(50.dp),

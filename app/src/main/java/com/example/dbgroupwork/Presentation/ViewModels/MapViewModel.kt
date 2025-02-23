@@ -24,6 +24,8 @@ import java.net.URL
 class MapViewModel {
 }
 
+data class Gym(val name: String, val location: LatLng)
+
 @Composable
 fun GetUserLocation(): LatLng? {
     val context = LocalContext.current
@@ -68,28 +70,30 @@ fun RequestMapPermissions(onPermissionsGranted: () -> Unit) {
     }
 }
 
-suspend fun GetNearbyGyms(location: LatLng,radius: Int = 1000):List<LatLng>{
+suspend fun GetNearbyGyms(location: LatLng,radius: Int = 2000):List<Gym>{
     val apiKey = "AIzaSyB8tgjWDhvHrBZ43AD_qPpaDIWLy7Mtzmo"
-
-    val searchable = "gym"
 
     val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" +
             "?location=${location.latitude},${location.longitude}" +
-            "&radius=$radius&type=$searchable&key=$apiKey"
+            "&radius=$radius" +
+            "&type=establishment" +
+            "&keyword=gym" +
+            "&key=$apiKey"
 
     return withContext(Dispatchers.IO) {
         try {
             val response = URL(url).readText()
             val jsonObject = JSONObject(response)
             val results = jsonObject.getJSONArray("results")
-            val gyms = mutableListOf<LatLng>()
+            val gyms = mutableListOf<Gym>()
 
             for (i in 0 until results.length()) {
                 val result = results.getJSONObject(i)
+                val name = result.getString("name")
                 val geometry = result.getJSONObject("geometry").getJSONObject("location")
                 val lat = geometry.getDouble("lat")
                 val lng = geometry.getDouble("lng")
-                gyms.add(LatLng(lat, lng))
+                gyms.add(Gym(name, LatLng(lat, lng)))
             }
 
             gyms

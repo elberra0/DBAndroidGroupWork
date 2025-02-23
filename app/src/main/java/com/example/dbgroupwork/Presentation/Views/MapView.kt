@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.example.dbgroupwork.Presentation.ViewModels.GetNearbyGyms
 import com.example.dbgroupwork.Presentation.ViewModels.GetUserLocation
+import com.example.dbgroupwork.Presentation.ViewModels.Gym
 import com.example.dbgroupwork.Presentation.ViewModels.RequestMapPermissions
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
@@ -41,7 +42,7 @@ fun GoogleMapView() {
 
     val userLocation = GetUserLocation()
     val context = LocalContext.current
-    var gymLocations by remember { mutableStateOf<List<LatLng>>(emptyList()) }
+    var gymLocations by remember { mutableStateOf<List<Gym>>(emptyList()) }
 
     LaunchedEffect(userLocation) {
         userLocation?.let { location ->
@@ -69,8 +70,8 @@ fun GoogleMapView() {
 
         gymLocations.forEach { gym ->
             Marker(
-                state = rememberMarkerState(position = gym),
-                title = "Gym",
+                state = rememberMarkerState(position = gym.location),
+                title = gym.name,
                 icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
             )
         }

@@ -1,5 +1,8 @@
 package com.example.dbgroupwork.Presentation.ViewModels
 
+import android.content.Context
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
 import com.example.dbgroupwork.Domain.Models.UserData
@@ -22,14 +25,21 @@ class SignupViewModel (private val saveUserDataUseCase: SaveUserDataUseCase,
     private val _password = MutableStateFlow("")
     val password: StateFlow<String> = _password
 
+    private val _passwordConfirm = MutableStateFlow("")
+    val passwordConfirm: StateFlow<String> = _passwordConfirm
     init {
         loadUserData()
     }
 
-    fun saveUserData() {
-        viewModelScope.launch {
-            saveUserDataUseCase(_email.value, _username.value, _password.value)
+    fun saveUserData(context: Context) {
+        if(password.value == passwordConfirm.value){
+            viewModelScope.launch {
+                saveUserDataUseCase(_email.value, _username.value, _password.value)
+            }
+        }else{
+            Toast.makeText(context, "Contraseñas no coinciden", Toast.LENGTH_SHORT).show()
         }
+
     }
 
     private fun loadUserData() {
@@ -52,5 +62,9 @@ class SignupViewModel (private val saveUserDataUseCase: SaveUserDataUseCase,
 
     fun onPasswordChanged(newPassword: String) {
         _password.value = newPassword
+    }
+
+    fun onPasswordConfirmChanged(newPassword: String) {
+        _passwordConfirm.value = newPassword
     }
 }

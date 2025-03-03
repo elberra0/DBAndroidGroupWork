@@ -2,10 +2,12 @@ package com.example.dbgroupwork.Data
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.dbgroupwork.Domain.Models.UserData
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
 private val Context.datastore by preferencesDataStore("user_prefs")
@@ -18,6 +20,14 @@ class DataStoreManager(private val context: Context) {
         private val PASSWORD_KEY = stringPreferencesKey("password")
     }
 
+    suspend fun saveUserIfNotRegistered(userData:UserData){
+        if(!existsUserDatastore(userData)){
+            saveUserData(userData)
+        }else{
+            Toast.makeText(context, "User con esos credenciales ya registrado", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     suspend fun saveUserData(userData: UserData){
         context.datastore.edit { preferences->
             preferences[EMAIL_KEY] = userData.email
@@ -25,6 +35,13 @@ class DataStoreManager(private val context: Context) {
             preferences[PASSWORD_KEY] = userData.password
         }
         Log.d("DataStore", "Datos guardados: $userData")
+    }
+
+    suspend fun existsUserDatastore(userData:UserData):Boolean{
+        return context.datastore.data.map { preferences->
+            preferences[EMAIL_KEY] == userData.email ||
+            preferences[USERNAME_KEY] == userData.username
+        }.firstOrNull() ?: false
     }
 
     val userData:Flow<UserData> = context.datastore.data.map {

@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -47,11 +48,12 @@ fun SignUpScreen(navController: NavController, viewModel:SignupViewModel){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val context = LocalContext.current
 
         val email by viewModel.email.collectAsState()
         val username by viewModel.username.collectAsState()
         val password by viewModel.password.collectAsState()
-        var confirmPassword by remember { mutableStateOf("") }
+        val confirmPassword by viewModel.passwordConfirm.collectAsState()
 
         Spacer(modifier = Modifier.height(20.dp))
         SettingsTextField(email, onValueChange = { viewModel.onEmailChanged(it) }, "Email", Icons.Filled.Email,true)
@@ -60,11 +62,11 @@ fun SignUpScreen(navController: NavController, viewModel:SignupViewModel){
         Spacer(modifier = Modifier.height(20.dp))
         SettingsTextField(password, onValueChange = { viewModel.onPasswordChanged(it) }, "Password",Icons.Filled.Lock,true)
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(confirmPassword, onValueChange = {confirmPassword = it}, "Confirm Password",Icons.Filled.CheckCircle,false)
+        SettingsTextField(confirmPassword, onValueChange = {viewModel.onPasswordConfirmChanged(it)}, "Confirm Password",Icons.Filled.CheckCircle,!password.isNullOrEmpty()?:true)
         Spacer(modifier = Modifier.height(50.dp))
 
         Button(
-            onClick = { viewModel.saveUserData()},
+            onClick = { viewModel.saveUserData(context)},
             modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .height(50.dp),

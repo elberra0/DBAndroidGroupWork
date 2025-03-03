@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 class UserRepositoryImpl (private val dataStoreManager: DataStoreManager) : UserRepository {
     override suspend fun saveUserData(userData: UserData) {
-        dataStoreManager.saveUserData(userData)
+        dataStoreManager.saveUserIfNotRegistered(userData)
     }
 
     override fun getUserData(): Flow<UserData> {

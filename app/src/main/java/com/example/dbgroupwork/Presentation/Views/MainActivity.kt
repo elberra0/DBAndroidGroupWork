@@ -34,12 +34,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.dbgroupwork.Presentation.Theme.DBGroupWorkTheme
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.Marker
-import com.google.maps.android.compose.rememberCameraPositionState
-import com.google.maps.android.compose.rememberMarkerState
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -62,7 +56,6 @@ import com.example.dbgroupwork.Data.Repository.UserRepositoryImpl
 import com.example.dbgroupwork.Domain.UseCaes.CheckUserToLoginUseCase
 import com.example.dbgroupwork.Domain.UseCaes.SaveUserDataUseCase
 import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
-import com.example.dbgroupwork.Presentation.ViewModels.RequestMapPermissions
 import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 
 class MainActivity : ComponentActivity() {

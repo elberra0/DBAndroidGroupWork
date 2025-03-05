@@ -77,14 +77,6 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Composable
 fun HomeScreen() {
     Box(modifier = Modifier.fillMaxSize()
         .background(Color(0xFF2C3E50)), contentAlignment = Alignment.Center) {

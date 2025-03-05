@@ -2,10 +2,8 @@ package com.example.dbgroupwork.Presentation.ViewModels
 
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
-import com.example.dbgroupwork.Domain.Models.UserData
 import com.example.dbgroupwork.Domain.UseCaes.SaveUserDataUseCase
 import com.example.dbgroupwork.Domain.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,28 +25,22 @@ class SignupViewModel (private val saveUserDataUseCase: SaveUserDataUseCase,
 
     private val _passwordConfirm = MutableStateFlow("")
     val passwordConfirm: StateFlow<String> = _passwordConfirm
+
     init {
-        loadUserData()
+        //loadUserData()
     }
 
     fun saveUserData(context: Context) {
         if(password.value == passwordConfirm.value){
-            viewModelScope.launch {
-                saveUserDataUseCase(_email.value, _username.value, _password.value)
+            if(email.value.length != 0 && username.value.length != 0){
+                viewModelScope.launch {
+                    saveUserDataUseCase(_email.value, _username.value, _password.value)
+                }
+            }else{
+                Toast.makeText(context, "Credentials missing", Toast.LENGTH_SHORT).show()
             }
         }else{
-            Toast.makeText(context, "Contraseñas no coinciden", Toast.LENGTH_SHORT).show()
-        }
-
-    }
-
-    private fun loadUserData() {
-        viewModelScope.launch {
-            userRepository.getUserData().collect { userData ->
-                _email.value = userData.email
-                _username.value = userData.username
-                _password.value = userData.password
-            }
+            Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
         }
     }
 

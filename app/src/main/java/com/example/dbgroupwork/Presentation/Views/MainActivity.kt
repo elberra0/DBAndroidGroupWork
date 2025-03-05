@@ -59,7 +59,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.dbgroupwork.Data.DataStoreManager
 import com.example.dbgroupwork.Data.Repository.UserRepositoryImpl
+import com.example.dbgroupwork.Domain.UseCaes.CheckUserToLoginUseCase
 import com.example.dbgroupwork.Domain.UseCaes.SaveUserDataUseCase
+import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.RequestMapPermissions
 import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 
@@ -69,11 +71,13 @@ class MainActivity : ComponentActivity() {
         val dataStoreManager = DataStoreManager(applicationContext)
         val userRepository = UserRepositoryImpl(dataStoreManager)
         val saveUserDataUseCase = SaveUserDataUseCase(userRepository)
+        val checkUserToLoginUseCase = CheckUserToLoginUseCase(userRepository)
         val viewModel = SignupViewModel(saveUserDataUseCase, userRepository)
+        val loginViewModel = LoginViewModel(checkUserToLoginUseCase, userRepository)
         enableEdgeToEdge()
         setContent {
             DBGroupWorkTheme {
-                AppNavHost(viewModel)
+                AppNavHost(viewModel,loginViewModel)
             }
         }
     }

@@ -18,6 +18,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,18 +26,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.RequestMapPermissions
+import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 
 class LoginView {
 }
 
 @Composable
-fun LoginScreen(navController: NavController){
+fun LoginScreen(navController: NavController,viewModel: LoginViewModel){
     LogInTopText()
 
     Column(
@@ -45,18 +49,19 @@ fun LoginScreen(navController: NavController){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val context = LocalContext.current
 
-        var emailOrUsername by remember { mutableStateOf("") }
-        var username by remember { mutableStateOf("") }
+        val emailOrUsername by viewModel.emailOrUsername.collectAsState()
+        val password by viewModel.password.collectAsState()
 
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(emailOrUsername, onValueChange = {emailOrUsername = it}, "Username/email", Icons.Filled.AccountBox,true)
+        SettingsTextField(emailOrUsername, onValueChange = {viewModel.onEmailOrUsernameChanged(it)}, "Username/email", Icons.Filled.AccountBox,true)
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(username, onValueChange = {username = it}, "Password", Icons.Filled.Lock,true)
+        SettingsTextField(password, onValueChange = {viewModel.onPasswordChanged(it)}, "Password", Icons.Filled.Lock,true)
         Spacer(modifier = Modifier.height(50.dp))
 
         Button(
-            onClick = {navController.navigate("main") },
+            onClick = { viewModel.loginUserData(context,navController) },
             modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .height(50.dp),

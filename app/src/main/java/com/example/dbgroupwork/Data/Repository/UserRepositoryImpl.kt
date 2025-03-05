@@ -10,6 +10,10 @@ class UserRepositoryImpl (private val dataStoreManager: DataStoreManager) : User
         dataStoreManager.saveUserIfNotRegistered(userData)
     }
 
+    override suspend fun checkUserToLogin(userData: UserData): Boolean {
+        return dataStoreManager.checkUserToLogin(userData)
+    }
+
     override fun getUserData(): Flow<UserData> {
         return dataStoreManager.userData
     }

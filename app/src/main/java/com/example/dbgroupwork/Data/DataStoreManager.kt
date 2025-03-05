@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.dbgroupwork.Domain.Models.UserData
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
@@ -35,6 +36,20 @@ class DataStoreManager(private val context: Context) {
             preferences[PASSWORD_KEY] = userData.password
         }
         Log.d("DataStore", "Datos guardados: $userData")
+    }
+
+    suspend fun checkUserToLogin(userData: UserData): Boolean {
+        val storedUserData = context.datastore.data.first()
+        val isLoginSuccessful =  (storedUserData[EMAIL_KEY] == userData.email ||
+                storedUserData[USERNAME_KEY] == userData.username) &&
+                storedUserData[PASSWORD_KEY] == userData.password
+
+        if(isLoginSuccessful){
+            Toast.makeText(context, "Logging In", Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(context, "Wrong credentials or User does not exist", Toast.LENGTH_SHORT).show()
+        }
+        return isLoginSuccessful
     }
 
     suspend fun existsUserDatastore(userData:UserData):Boolean{

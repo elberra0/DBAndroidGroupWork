@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.dbgroupwork.Domain.UseCaes.ModifyUserDataUseCase
+import com.example.dbgroupwork.Domain.UserRepository
 import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 import kotlinx.coroutines.delay
@@ -43,7 +45,7 @@ fun SplashScreen(navigateToMainScreen: () -> Unit){
 }
 
 @Composable
-fun AppNavHost(signupViewModel: SignupViewModel, loginViewModel: LoginViewModel) {
+fun AppNavHost(signupViewModel: SignupViewModel, loginViewModel: LoginViewModel,modifyUserDataUseCase: ModifyUserDataUseCase,userRepository: UserRepository) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "splash", modifier = Modifier.background(Color(0xFF2C3E50))) {
@@ -57,7 +59,7 @@ fun AppNavHost(signupViewModel: SignupViewModel, loginViewModel: LoginViewModel)
             )
         }
         composable("main") {
-            MainScreen()
+            MainScreen(modifyUserDataUseCase,userRepository)
         }
         composable("login") {
             LoginScreen(navController,loginViewModel)

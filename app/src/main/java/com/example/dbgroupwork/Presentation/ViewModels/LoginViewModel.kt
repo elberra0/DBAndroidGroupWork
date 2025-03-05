@@ -21,7 +21,7 @@ class LoginViewModel(private val checkUserDataToLoginUseCase: CheckUserToLoginUs
     val password: StateFlow<String> = _password
 
     init {
-        loadUserData()
+        //loadUserData()
     }
 
     fun loginUserData(context: Context,navController:NavController) {

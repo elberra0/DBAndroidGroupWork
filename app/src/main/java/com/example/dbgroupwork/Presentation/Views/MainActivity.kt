@@ -38,15 +38,9 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.TextField
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -54,8 +48,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.dbgroupwork.Data.DataStoreManager
 import com.example.dbgroupwork.Data.Repository.UserRepositoryImpl
 import com.example.dbgroupwork.Domain.UseCaes.CheckUserToLoginUseCase
+import com.example.dbgroupwork.Domain.UseCaes.ModifyUserDataUseCase
 import com.example.dbgroupwork.Domain.UseCaes.SaveUserDataUseCase
+import com.example.dbgroupwork.Domain.UserRepository
 import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
+import com.example.dbgroupwork.Presentation.ViewModels.SettingsScreenViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 
 class MainActivity : ComponentActivity() {
@@ -64,13 +61,14 @@ class MainActivity : ComponentActivity() {
         val dataStoreManager = DataStoreManager(applicationContext)
         val userRepository = UserRepositoryImpl(dataStoreManager)
         val saveUserDataUseCase = SaveUserDataUseCase(userRepository)
+        val modifyUserDataUseCase = ModifyUserDataUseCase(userRepository)
         val checkUserToLoginUseCase = CheckUserToLoginUseCase(userRepository)
         val viewModel = SignupViewModel(saveUserDataUseCase, userRepository)
         val loginViewModel = LoginViewModel(checkUserToLoginUseCase, userRepository)
         enableEdgeToEdge()
         setContent {
             DBGroupWorkTheme {
-                AppNavHost(viewModel,loginViewModel)
+                AppNavHost(viewModel,loginViewModel,modifyUserDataUseCase,userRepository)
             }
         }
     }
@@ -87,63 +85,6 @@ fun HomeScreen() {
 @Composable
 fun ProfileScreen() {
     GoogleMapView()
-}
-
-@Composable
-fun SettingsScreen() {
-    Column(
-        modifier = Modifier.fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        var email by remember { mutableStateOf("") }
-        var username by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
-        var confirmPassword by remember { mutableStateOf("") }
-
-        Text(
-            text = "Settings",
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.White,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(bottom = 5.dp)
-        )
-
-        Text(
-            text = "Change your user information",
-            fontSize = 15.sp,
-            color = Color.Gray,
-            textAlign = TextAlign.Left,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(email, onValueChange = {email = it}, "New Email", Icons.Filled.Email,true)
-        Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(username, onValueChange = {username = it}, "New Username", Icons.Filled.AccountCircle,true)
-        Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(password, onValueChange = {password = it}, "New Password",Icons.Filled.Lock,true)
-        Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(confirmPassword, onValueChange = {confirmPassword = it}, "Confirm New Password",Icons.Filled.CheckCircle,false)
-        Spacer(modifier = Modifier.height(50.dp))
-
-        Button(
-            onClick = { /* Llamar a funcion que guarde datos que se han cambiado */ },
-            modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,
-                contentColor = Color(0xFF2C3E50)
-            )
-
-        ) {
-            Text(text = "Validate", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-        }
-
-    }
 }
 
 @Composable
@@ -193,7 +134,7 @@ fun BottomNavBar(navController: NavController) {
 }
 
 @Composable
-fun MainScreen() {
+fun MainScreen(modifyUserDataUseCase: ModifyUserDataUseCase, userRepository: UserRepository) {
     val navController = rememberNavController()
 
     Scaffold(
@@ -207,16 +148,7 @@ fun MainScreen() {
         ) {
             composable(BottomNavBarItem.Home.route) { HomeScreen() }
             composable(BottomNavBarItem.Profile.route) { ProfileScreen() }
-            composable(BottomNavBarItem.Settings.route) { SettingsScreen() }
+            composable(BottomNavBarItem.Settings.route) { SettingsScreen(viewModel = SettingsScreenViewModel(modifyUserDataUseCase, userRepository)) }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    DBGroupWorkTheme {
-        //Greeting("Android")
-        MainScreen()
     }
 }

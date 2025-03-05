@@ -59,7 +59,7 @@ fun SignUpScreen(navController: NavController, viewModel:SignupViewModel){
         Spacer(modifier = Modifier.height(20.dp))
         SettingsTextField(password, onValueChange = { viewModel.onPasswordChanged(it) }, "Password",Icons.Filled.Lock,true)
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(confirmPassword, onValueChange = {viewModel.onPasswordConfirmChanged(it)}, "Confirm Password",Icons.Filled.CheckCircle,!password.isNullOrEmpty()?:true)
+        SettingsTextField(confirmPassword, onValueChange = {viewModel.onPasswordConfirmChanged(it)}, "Confirm Password",Icons.Filled.CheckCircle,password.isNotEmpty())
         Spacer(modifier = Modifier.height(50.dp))
 
         Button(

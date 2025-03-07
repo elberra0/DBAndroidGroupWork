@@ -66,16 +66,16 @@ fun SettingsScreen(viewModel: SettingsScreenViewModel) {
         )
 
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(email, onValueChange = {viewModel.onEmailChanged(it)}, "New Email", Icons.Filled.Email,true)
+        SettingsTextField(email, onValueChange = {viewModel.onEmailChanged(it)}, "New Email", Icons.Filled.Email,true,false)
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(username, onValueChange = {viewModel.onUsernameChanged(it)}, "New Username", Icons.Filled.AccountCircle,true)
+        SettingsTextField(username, onValueChange = {viewModel.onUsernameChanged(it)}, "New Username", Icons.Filled.AccountCircle,true,false)
         Spacer(modifier = Modifier.height(20.dp))
         SettingsTextField(password, onValueChange = {viewModel.onPasswordChanged(it)}, "New Password",
-            Icons.Filled.Lock,true)
+            Icons.Filled.Lock,true,true)
         Spacer(modifier = Modifier.height(20.dp))
         SettingsTextField(confirmPassword, onValueChange = {viewModel.onPasswordConfirmChanged(it)}, "Confirm New Password",
             Icons.Filled.CheckCircle,
-            password.isNotEmpty()
+            password.isNotEmpty(),true
         )
         Spacer(modifier = Modifier.height(50.dp))
 

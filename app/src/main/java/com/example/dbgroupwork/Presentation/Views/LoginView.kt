@@ -20,9 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,8 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
-import com.example.dbgroupwork.Presentation.ViewModels.RequestMapPermissions
-import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 
 class LoginView {
 }
@@ -55,9 +50,9 @@ fun LoginScreen(navController: NavController,viewModel: LoginViewModel){
         val password by viewModel.password.collectAsState()
 
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(emailOrUsername, onValueChange = {viewModel.onEmailOrUsernameChanged(it)}, "Username/email", Icons.Filled.AccountBox,true)
+        SettingsTextField(emailOrUsername, onValueChange = {viewModel.onEmailOrUsernameChanged(it)}, "Username/email", Icons.Filled.AccountBox,true,false)
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(password, onValueChange = {viewModel.onPasswordChanged(it)}, "Password", Icons.Filled.Lock,true)
+        SettingsTextField(password, onValueChange = {viewModel.onPasswordChanged(it)}, "Password", Icons.Filled.Lock,true,true)
         Spacer(modifier = Modifier.height(50.dp))
 
         Button(
@@ -77,6 +72,7 @@ fun LoginScreen(navController: NavController,viewModel: LoginViewModel){
         GoToRegisterScreen(navController)
     }
 }
+
 @Composable
 fun LogInTopText(){
     Box(modifier = Modifier.fillMaxSize()){

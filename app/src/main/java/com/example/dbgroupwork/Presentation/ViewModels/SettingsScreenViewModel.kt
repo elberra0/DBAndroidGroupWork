@@ -60,7 +60,6 @@ class SettingsScreenViewModel(private val modifyUserDataUseCase: ModifyUserDataU
         }
     }
 
-
     fun onEmailChanged(newEmail: String) {
         _email.value = newEmail
     }

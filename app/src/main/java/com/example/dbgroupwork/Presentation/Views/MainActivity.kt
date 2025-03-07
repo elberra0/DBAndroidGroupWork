@@ -41,6 +41,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -65,10 +66,11 @@ class MainActivity : ComponentActivity() {
         val checkUserToLoginUseCase = CheckUserToLoginUseCase(userRepository)
         val viewModel = SignupViewModel(saveUserDataUseCase, userRepository)
         val loginViewModel = LoginViewModel(checkUserToLoginUseCase, userRepository)
+        val settingsScreenViewModel = SettingsScreenViewModel(modifyUserDataUseCase, userRepository)
         enableEdgeToEdge()
         setContent {
             DBGroupWorkTheme {
-                AppNavHost(viewModel,loginViewModel,modifyUserDataUseCase,userRepository)
+                AppNavHost(viewModel,loginViewModel,modifyUserDataUseCase,userRepository,settingsScreenViewModel)
             }
         }
     }
@@ -88,19 +90,35 @@ fun ProfileScreen() {
 }
 
 @Composable
-fun SettingsTextField(value:String,onValueChange: (String) -> Unit,placeHolderText:String,icon: ImageVector, enabled:Boolean){
-    TextField(
-        value = value,
-        onValueChange = onValueChange,
-        placeholder = { Text(placeHolderText, fontSize = 14.sp) },
-        enabled = enabled,
-        textStyle = TextStyle(fontSize = 14.sp),
-        leadingIcon = { Icon(imageVector = icon, contentDescription = null) },
-        modifier = Modifier.fillMaxWidth(0.70f)
-            .height(50.dp),
-        singleLine = true,
-        shape = RoundedCornerShape(8.dp)
-    )
+fun SettingsTextField(value:String,onValueChange: (String) -> Unit,placeHolderText:String,icon: ImageVector, enabled:Boolean, isPassword:Boolean){
+    if(!isPassword) {
+        TextField(
+            value = value,
+            onValueChange = onValueChange,
+            placeholder = { Text(placeHolderText, fontSize = 14.sp) },
+            enabled = enabled,
+            textStyle = TextStyle(fontSize = 14.sp),
+            leadingIcon = { Icon(imageVector = icon, contentDescription = null) },
+            modifier = Modifier.fillMaxWidth(0.70f)
+                .height(50.dp),
+            singleLine = true,
+            shape = RoundedCornerShape(8.dp)
+        )
+    }else{
+        TextField(
+            value = value,
+            onValueChange = onValueChange,
+            visualTransformation = PasswordVisualTransformation(),
+            placeholder = { Text(placeHolderText, fontSize = 14.sp) },
+            enabled = enabled,
+            textStyle = TextStyle(fontSize = 14.sp),
+            leadingIcon = { Icon(imageVector = icon, contentDescription = null) },
+            modifier = Modifier.fillMaxWidth(0.70f)
+                .height(50.dp),
+            singleLine = true,
+            shape = RoundedCornerShape(8.dp)
+        )
+    }
 }
 
 @Composable
@@ -108,6 +126,7 @@ fun BottomNavBar(navController: NavController) {
     val items = listOf(
         BottomNavBarItem.Home,
         BottomNavBarItem.Profile,
+        BottomNavBarItem.Community,
         BottomNavBarItem.Settings
     )
 
@@ -134,7 +153,7 @@ fun BottomNavBar(navController: NavController) {
 }
 
 @Composable
-fun MainScreen(modifyUserDataUseCase: ModifyUserDataUseCase, userRepository: UserRepository) {
+fun MainScreen(modifyUserDataUseCase: ModifyUserDataUseCase, userRepository: UserRepository,settingsScreenViewModel: SettingsScreenViewModel) {
     val navController = rememberNavController()
 
     Scaffold(
@@ -148,7 +167,8 @@ fun MainScreen(modifyUserDataUseCase: ModifyUserDataUseCase, userRepository: Use
         ) {
             composable(BottomNavBarItem.Home.route) { HomeScreen() }
             composable(BottomNavBarItem.Profile.route) { ProfileScreen() }
-            composable(BottomNavBarItem.Settings.route) { SettingsScreen(viewModel = SettingsScreenViewModel(modifyUserDataUseCase, userRepository)) }
+            composable(BottomNavBarItem.Community.route) { CommunityScreen() }
+            composable(BottomNavBarItem.Settings.route) { SettingsScreen(settingsScreenViewModel) }
         }
     }
 }

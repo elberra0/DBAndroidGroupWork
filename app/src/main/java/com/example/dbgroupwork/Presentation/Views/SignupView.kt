@@ -53,13 +53,13 @@ fun SignUpScreen(navController: NavController, viewModel:SignupViewModel){
         val confirmPassword by viewModel.passwordConfirm.collectAsState()
 
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(email, onValueChange = { viewModel.onEmailChanged(it) }, "Email", Icons.Filled.Email,true)
+        SettingsTextField(email, onValueChange = { viewModel.onEmailChanged(it) }, "Email", Icons.Filled.Email,true,false)
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(username, onValueChange = { viewModel.onUsernameChanged(it) }, "Username", Icons.Filled.AccountCircle,true)
+        SettingsTextField(username, onValueChange = { viewModel.onUsernameChanged(it) }, "Username", Icons.Filled.AccountCircle,true,false)
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(password, onValueChange = { viewModel.onPasswordChanged(it) }, "Password",Icons.Filled.Lock,true)
+        SettingsTextField(password, onValueChange = { viewModel.onPasswordChanged(it) }, "Password",Icons.Filled.Lock,true,true)
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(confirmPassword, onValueChange = {viewModel.onPasswordConfirmChanged(it)}, "Confirm Password",Icons.Filled.CheckCircle,password.isNotEmpty())
+        SettingsTextField(confirmPassword, onValueChange = {viewModel.onPasswordConfirmChanged(it)}, "Confirm Password",Icons.Filled.CheckCircle,password.isNotEmpty(),true)
         Spacer(modifier = Modifier.height(50.dp))
 
         Button(

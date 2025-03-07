@@ -25,11 +25,7 @@ class SignupViewModel (private val saveUserDataUseCase: SaveUserDataUseCase,
 
     private val _passwordConfirm = MutableStateFlow("")
     val passwordConfirm: StateFlow<String> = _passwordConfirm
-
-    init {
-        //loadUserData()
-    }
-
+    
     fun saveUserData(context: Context) {
         if(password.value == passwordConfirm.value){
             if(email.value.length != 0 && username.value.length != 0){

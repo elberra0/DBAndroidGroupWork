@@ -23,9 +23,6 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
 
-class MapView {
-}
-
 @Composable
 fun GoogleMapView() {
     var permissionsGranted by remember { mutableStateOf(false) }

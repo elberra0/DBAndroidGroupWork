@@ -31,9 +31,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
 
-class LoginView {
-}
-
 @Composable
 fun LoginScreen(navController: NavController,viewModel: LoginViewModel){
     LogInTopText()

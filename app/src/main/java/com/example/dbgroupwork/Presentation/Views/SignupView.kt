@@ -33,8 +33,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 
-class SignupView {
-}
 @Composable
 fun SignUpScreen(navController: NavController, viewModel:SignupViewModel){
     SignUpTopText()

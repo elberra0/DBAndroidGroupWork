@@ -8,8 +8,8 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class BottomNavBarItem (val route: String, val title: String, val icon: ImageVector){
-    object Home : BottomNavBarItem("home", "Create Plan!", Icons.Default.Home)
-    object Profile : BottomNavBarItem("map", "Gyms Nearby", Icons.Default.Place)
-    object Community : BottomNavBarItem("community", "Community", Icons.Default.Face)
-    object Settings : BottomNavBarItem("settings", "Settings", Icons.Default.Settings)
+    data object Home : BottomNavBarItem("home", "Create Plan!", Icons.Default.Home)
+    data object Profile : BottomNavBarItem("map", "Gyms Nearby", Icons.Default.Place)
+    data object Community : BottomNavBarItem("community", "Community", Icons.Default.Face)
+    data object Settings : BottomNavBarItem("settings", "Settings", Icons.Default.Settings)
 }

@@ -10,9 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 
-class CommunityView {
-}
-
 @Composable
 fun CommunityScreen() {
     Box(modifier = Modifier.fillMaxSize()

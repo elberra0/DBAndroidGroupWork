@@ -13,3 +13,8 @@
 .externalNativeBuild
 .cxx
 local.properties
+.idea/appInsightsSettings.xml
+.idea/compiler.xml
+.idea/gradle.xml
+.idea/misc.xml
+.kotlin/errors/errors-1741556002001.log

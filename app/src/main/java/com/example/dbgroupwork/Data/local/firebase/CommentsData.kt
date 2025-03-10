@@ -1,4 +1,4 @@
-package com.example.dbgroupwork.Data.firebase
+package com.example.dbgroupwork.Data.local.firebase
 
 data class CommentsData (
     val id:String = "",

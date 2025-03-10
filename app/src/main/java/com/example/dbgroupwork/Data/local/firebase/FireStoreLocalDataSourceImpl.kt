@@ -1,4 +1,4 @@
-package com.example.dbgroupwork.Data.firebase
+package com.example.dbgroupwork.Data.local.firebase
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.example.dbgroupwork.Data.FireStoreLocalDataSource

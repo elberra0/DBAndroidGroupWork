@@ -13,11 +13,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.dbgroupwork.Domain.UseCaes.ModifyUserDataUseCase
 import com.example.dbgroupwork.Domain.UserRepository
+import com.example.dbgroupwork.Presentation.DependencyProvider.commentsViewModelFactory
+import com.example.dbgroupwork.Presentation.MainScreen
+import com.example.dbgroupwork.Presentation.ViewModels.CommunityViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.SettingsScreenViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
@@ -48,7 +53,6 @@ fun SplashScreen(navigateToMainScreen: () -> Unit){
 @Composable
 fun AppNavHost(signupViewModel: SignupViewModel, loginViewModel: LoginViewModel,modifyUserDataUseCase: ModifyUserDataUseCase,userRepository: UserRepository,settingsScreenViewModel: SettingsScreenViewModel) {
     val navController = rememberNavController()
-
     NavHost(navController = navController, startDestination = "splash", modifier = Modifier.background(Color(0xFF2C3E50))) {
         composable("splash") {
             SplashScreen(

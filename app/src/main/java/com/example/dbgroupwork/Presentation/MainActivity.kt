@@ -1,13 +1,11 @@
-package com.example.dbgroupwork.Presentation.Views
+package com.example.dbgroupwork.Presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,15 +31,11 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.TextField
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.motionEventSpy
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -56,6 +50,11 @@ import com.example.dbgroupwork.Presentation.Feature.CustomButton
 import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.SettingsScreenViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
+import com.example.dbgroupwork.Presentation.Views.AppNavHost
+import com.example.dbgroupwork.Presentation.Views.BottomNavBarItem
+import com.example.dbgroupwork.Presentation.Views.CommunityScreen
+import com.example.dbgroupwork.Presentation.Views.GoogleMapView
+import com.example.dbgroupwork.Presentation.Views.SettingsScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,14 +91,6 @@ fun HomeScreen() {
         CustomButton(text = "My plan") { }
     }
 }
-/*
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen()
-}
- */
-
 
 @Composable
 fun ProfileScreen() {

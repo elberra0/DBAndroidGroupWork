@@ -29,7 +29,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.dbgroupwork.Presentation.Feature.CustomButton
 import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
 
 @Composable
@@ -53,8 +52,19 @@ fun LoginScreen(navController: NavController,viewModel: LoginViewModel){
         SettingsTextField(password, onValueChange = {viewModel.onPasswordChanged(it)}, "Password", Icons.Filled.Lock,true,true)
         Spacer(modifier = Modifier.height(50.dp))
 
-        CustomButton(text = "Log in!") { viewModel.loginUserData(context,navController) }
+        Button(
+            onClick = { viewModel.loginUserData(context,navController) },
+            modifier = Modifier
+                .fillMaxWidth(0.5f)
+                .height(50.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.White,
+                contentColor = Color(0xFF2C3E50)
+            )
 
+        ) {
+            Text(text = "Log in!", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+        }
         Spacer(modifier = Modifier.height(50.dp))
         GoToRegisterScreen(navController)
     }

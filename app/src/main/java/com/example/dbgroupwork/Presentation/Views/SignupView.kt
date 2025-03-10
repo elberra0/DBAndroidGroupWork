@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.dbgroupwork.Presentation.Feature.CustomButton
 import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 
 @Composable
@@ -60,19 +61,8 @@ fun SignUpScreen(navController: NavController, viewModel:SignupViewModel){
         SettingsTextField(confirmPassword, onValueChange = {viewModel.onPasswordConfirmChanged(it)}, "Confirm Password",Icons.Filled.CheckCircle,password.isNotEmpty(),true)
         Spacer(modifier = Modifier.height(50.dp))
 
-        Button(
-            onClick = { viewModel.saveUserData(context)},
-            modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,
-                contentColor = Color(0xFF2C3E50)
-            )
+        CustomButton(text = "Sign up!") { viewModel.saveUserData(context) }
 
-        ) {
-            Text(text = "Sign up!", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-        }
         Spacer(modifier = Modifier.height(50.dp))
         GotoLoginScreen(navController)
     }

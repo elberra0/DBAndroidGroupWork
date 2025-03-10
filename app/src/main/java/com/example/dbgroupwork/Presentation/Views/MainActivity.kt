@@ -52,6 +52,7 @@ import com.example.dbgroupwork.Domain.UseCaes.CheckUserToLoginUseCase
 import com.example.dbgroupwork.Domain.UseCaes.ModifyUserDataUseCase
 import com.example.dbgroupwork.Domain.UseCaes.SaveUserDataUseCase
 import com.example.dbgroupwork.Domain.UserRepository
+import com.example.dbgroupwork.Presentation.Feature.CustomButton
 import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.SettingsScreenViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
@@ -84,35 +85,11 @@ fun HomeScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(
-            onClick = {  },
-            modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,
-                contentColor = Color(0xFF2C3E50)
-            )
-
-        ) {
-            Text(text = "Do test", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-        }
+        CustomButton(text = "Do test") { }
 
         Spacer(Modifier.height(150.dp))
 
-        Button(
-            onClick = {  },
-            modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,
-                contentColor = Color(0xFF2C3E50)
-            )
-
-        ) {
-            Text(text = "My plan", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-        }
+        CustomButton(text = "My plan") { }
     }
 }
 /*

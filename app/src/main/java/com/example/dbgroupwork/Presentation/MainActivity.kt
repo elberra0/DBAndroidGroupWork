@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -34,9 +32,9 @@ import androidx.compose.material3.TextField
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -46,6 +44,7 @@ import com.example.dbgroupwork.Domain.UseCaes.CheckUserToLoginUseCase
 import com.example.dbgroupwork.Domain.UseCaes.ModifyUserDataUseCase
 import com.example.dbgroupwork.Domain.UseCaes.SaveUserDataUseCase
 import com.example.dbgroupwork.Domain.UserRepository
+import com.example.dbgroupwork.Presentation.DependencyProvider.loginViewModel
 import com.example.dbgroupwork.Presentation.Feature.CustomButton
 import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.SettingsScreenViewModel
@@ -59,18 +58,10 @@ import com.example.dbgroupwork.Presentation.Views.SettingsScreen
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val dataStoreManager = DataStoreManager(applicationContext)
-        val userRepository = UserRepositoryImpl(dataStoreManager)
-        val saveUserDataUseCase = SaveUserDataUseCase(userRepository)
-        val modifyUserDataUseCase = ModifyUserDataUseCase(userRepository)
-        val checkUserToLoginUseCase = CheckUserToLoginUseCase(userRepository)
-        val viewModel = SignupViewModel(saveUserDataUseCase, userRepository)
-        val loginViewModel = LoginViewModel(checkUserToLoginUseCase, userRepository)
-        val settingsScreenViewModel = SettingsScreenViewModel(modifyUserDataUseCase, userRepository)
         enableEdgeToEdge()
         setContent {
             DBGroupWorkTheme {
-                AppNavHost(viewModel,loginViewModel,modifyUserDataUseCase,userRepository,settingsScreenViewModel)
+               AppNavHost()
             }
         }
     }
@@ -161,7 +152,7 @@ fun BottomNavBar(navController: NavController) {
 }
 
 @Composable
-fun MainScreen(modifyUserDataUseCase: ModifyUserDataUseCase, userRepository: UserRepository,settingsScreenViewModel: SettingsScreenViewModel) {
+fun MainScreen() {
     val navController = rememberNavController()
 
     Scaffold(
@@ -176,7 +167,7 @@ fun MainScreen(modifyUserDataUseCase: ModifyUserDataUseCase, userRepository: Use
             composable(BottomNavBarItem.Home.route) { HomeScreen() }
             composable(BottomNavBarItem.Profile.route) { ProfileScreen() }
             composable(BottomNavBarItem.Community.route) { CommunityScreen() }
-            composable(BottomNavBarItem.Settings.route) { SettingsScreen(settingsScreenViewModel) }
+            composable(BottomNavBarItem.Settings.route) { SettingsScreen() }
         }
     }
 }

@@ -28,11 +28,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.dbgroupwork.Presentation.DependencyProvider
 import com.example.dbgroupwork.Presentation.SettingsTextField
 import com.example.dbgroupwork.Presentation.ViewModels.SettingsScreenViewModel
 
 @Composable
-fun SettingsScreen(viewModel: SettingsScreenViewModel) {
+fun SettingsScreen(viewModel: SettingsScreenViewModel = viewModel(factory = DependencyProvider.settingsScreenViewModel)) {
     Column(
         modifier = Modifier.fillMaxSize()
             .verticalScroll(rememberScrollState()),

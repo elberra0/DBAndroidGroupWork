@@ -2,12 +2,12 @@ package com.example.dbgroupwork.Data.Repository
 
 import com.example.dbgroupwork.Data.DataStoreManager
 import com.example.dbgroupwork.Data.FireStoreLocalDataSource
-import com.example.dbgroupwork.Domain.Models.Comment
+//import com.example.dbgroupwork.Domain.Models.Comment
 import com.example.dbgroupwork.Domain.UserRepository
 import com.example.dbgroupwork.Domain.Models.UserData
 import kotlinx.coroutines.flow.Flow
 
-class UserRepositoryImpl(private val fireStoreLocalDataSource: FireStoreLocalDataSource, private val dataStoreManager: DataStoreManager) : UserRepository {
+class UserRepositoryImpl(private val dataStoreManager: DataStoreManager) : UserRepository {
 
     private var currentUserId: String? = null
 
@@ -46,7 +46,7 @@ class UserRepositoryImpl(private val fireStoreLocalDataSource: FireStoreLocalDat
     override suspend fun setCurrentUser(userId: String) {
         currentUserId = userId
     }
-
+/*
     override suspend fun addComment(comment: Comment) {
         TODO("Not yet implemented")
     }
@@ -54,4 +54,6 @@ class UserRepositoryImpl(private val fireStoreLocalDataSource: FireStoreLocalDat
     override fun getComments(monumentId: Long): Flow<List<Comment>> {
         TODO("Not yet implemented")
     }
+
+*/
 }

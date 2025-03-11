@@ -26,7 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.dbgroupwork.Presentation.DependencyProvider.commentsViewModelFactory
+import com.example.dbgroupwork.Presentation.DependencyProvider
 import com.example.dbgroupwork.Presentation.ViewModels.CommentsState
 import com.example.dbgroupwork.Presentation.ViewModels.CommunityViewModel
 
@@ -66,7 +66,7 @@ fun CommunityTopText(){
 }
 
 @Composable
-fun CommentsSection(viewModel:CommunityViewModel = viewModel(factory = commentsViewModelFactory)) {
+fun CommentsSection(viewModel:CommunityViewModel = viewModel(factory = DependencyProvider.commentsViewModelFactory)) {
     Scaffold(
         topBar = {},
     ) {
@@ -118,7 +118,7 @@ fun CommentsSection(viewModel:CommunityViewModel = viewModel(factory = commentsV
 
                     Button(
                         onClick = {
-                            viewModel.onAddReview(comment, author)
+                           // viewModel.onAddReview(comment, author)
                         },
                     ) {
                         Text(text = "Añadir")

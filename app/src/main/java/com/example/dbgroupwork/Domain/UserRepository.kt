@@ -1,5 +1,5 @@
 package com.example.dbgroupwork.Domain
-import com.example.dbgroupwork.Domain.Models.Comment
+//import com.example.dbgroupwork.Domain.Models.Comment
 import com.example.dbgroupwork.Domain.Models.UserData
 import kotlinx.coroutines.flow.Flow
 
@@ -11,6 +11,6 @@ interface UserRepository {
     suspend fun getCurrentUserId(): String?
     suspend fun getAllUserIds(): Set<String>
     suspend fun setCurrentUser(userId: String)
-    suspend fun addComment(comment: Comment)
-    fun getComments(monumentId:Long):Flow<List<Comment>>
+   // suspend fun addComment(comment: Comment)
+   // fun getComments(commentId:Long):Flow<List<Comment>>
 }

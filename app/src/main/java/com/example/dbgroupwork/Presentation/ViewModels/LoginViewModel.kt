@@ -8,21 +8,22 @@ import androidx.navigation.NavController
 import com.example.dbgroupwork.Domain.UseCaes.CheckUserToLoginUseCase
 import com.example.dbgroupwork.Domain.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val checkUserDataToLoginUseCase: CheckUserToLoginUseCase,
                      private val userRepository: UserRepository
 ): ViewModel() {
+//    private val _state: MutableStateFlow<LoginState> = MutableStateFlow(LoginState.Loading)
     private val _emailOrUsername = MutableStateFlow("")
+
     val emailOrUsername: StateFlow<String> = _emailOrUsername
 
     private val _password = MutableStateFlow("")
     val password: StateFlow<String> = _password
 
-    init {
-        //loadUserData()
-    }
 
     fun loginUserData(context: Context,navController:NavController) {
         if(emailOrUsername.value.length != 0 && password.value.length != 0){
@@ -52,4 +53,11 @@ class LoginViewModel(private val checkUserDataToLoginUseCase: CheckUserToLoginUs
     fun onPasswordChanged(newPassword: String) {
         _password.value = newPassword
     }
+}
+
+sealed class LoginState {
+
+    data object Loading : LoginState()
+    data class Success(val message: String) : LoginState()
+    data class Error(val message: String) : LoginState()
 }

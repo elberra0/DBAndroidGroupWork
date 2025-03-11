@@ -2,8 +2,8 @@ package com.example.dbgroupwork.Data.local.firebase
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.example.dbgroupwork.Data.FireStoreLocalDataSource
-import com.example.dbgroupwork.Data.toDomain
-import com.example.dbgroupwork.Domain.Models.Comment
+//import com.example.dbgroupwork.Data.toDomain
+//import com.example.dbgroupwork.Domain.Models.Comment
 
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
 class FireStoreLocalDataSourceImpl(private val firestore: FirebaseFirestore) : FireStoreLocalDataSource {
-
+/*
     override fun getComments(monumentId: Long): Flow<List<Comment>> {
         return callbackFlow {
 
@@ -52,4 +52,6 @@ class FireStoreLocalDataSourceImpl(private val firestore: FirebaseFirestore) : F
             .collection("comments")
             .add(commentData)
     }
+
+ */
 }

@@ -30,11 +30,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.dbgroupwork.Presentation.DependencyProvider
+import com.example.dbgroupwork.Presentation.SettingsTextField
 import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 
 @Composable
-fun SignUpScreen(navController: NavController, viewModel:SignupViewModel){
+fun SignUpScreen(navController: NavController, viewModel: SignupViewModel = viewModel(factory = DependencyProvider.signupViewModel)){
     SignUpTopText()
 
     Column(

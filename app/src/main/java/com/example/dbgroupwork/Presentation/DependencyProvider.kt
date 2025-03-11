@@ -29,19 +29,51 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name="user
 object DependencyProvider {
     val commentsViewModelFactory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-
+            val context = extras[APPLICATION_KEY]?.applicationContext!!
             val savedStateHandle = extras.createSavedStateHandle()
-            val application = extras[APPLICATION_KEY]!! as FitApp
-            val userRepository: UserRepository = getRepository(application)
-            //val getMonumentByIdUseCase = GetMonumentByIdUseCase(monumentRepository)
-            val getReviewUseCase = GetCommentsUseCase(userRepository)
-            val addReviewUseCase = AddCommentUseCase(userRepository )
+            //  val userRepository: UserRepository = getRepository(context)
+           // val getReviewUseCase = GetCommentsUseCase(userRepository)
+          //  val addReviewUseCase = AddCommentUseCase(userRepository )
 
-            return CommunityViewModel(savedStateHandle, getReviewUseCase, addReviewUseCase) as T
+           // return CommunityViewModel(savedStateHandle, getReviewUseCase, addReviewUseCase) as T
+            return CommunityViewModel(savedStateHandle) as T
             }
         }
 
-    private fun getRepository(application: FitApp): UserRepository {
+
+    val loginViewModel: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+            val context = extras[APPLICATION_KEY]?.applicationContext!!
+
+            val userRepository: UserRepository = getRepository(context)
+            val checkUserDataToLoginUseCase = CheckUserToLoginUseCase(userRepository)
+            return LoginViewModel(checkUserDataToLoginUseCase, userRepository) as T
+        }
+    }
+
+    val settingsScreenViewModel: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+
+            val context = extras[APPLICATION_KEY]?.applicationContext!!
+            val userRepository: UserRepository = getRepository(context)
+            val modifyUserDataUseCase = ModifyUserDataUseCase(userRepository)
+            return SettingsScreenViewModel(modifyUserDataUseCase, userRepository) as T
+        }
+    }
+
+    val signupViewModel: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+
+            val context = extras[APPLICATION_KEY]?.applicationContext!!
+            val userRepository: UserRepository = getRepository(context)
+            val saveUserDataUseCase = SaveUserDataUseCase(userRepository)
+            return SignupViewModel(saveUserDataUseCase, userRepository) as T
+        }
+    }
+
+
+
+    private fun getRepository(context: Context): UserRepository {
         //val json = Json {
         //    ignoreUnknownKeys = true
         //}
@@ -68,13 +100,12 @@ object DependencyProvider {
         //val dao = database.getDao()
         //val monumentRoomLocalDatasource: MonumentDatabaseDatasource = MonumentRoomLocalDatasourceImpl(dao)
 
-        val firebaseDatasourceImpl: FireStoreLocalDataSource = FireStoreLocalDataSourceImpl(firestore = application.getFirestore())
-        val dataStoreManager = DataStoreManager(application)
+       // val firebaseDatasourceImpl: FireStoreLocalDataSource = FireStoreLocalDataSourceImpl(firestore = context.getFirestore())
+        val dataStoreManager = DataStoreManager(context)
 
 
         val userRepository: UserRepository =
             UserRepositoryImpl(
-                firebaseDatasourceImpl,
                 dataStoreManager
             )
         return userRepository

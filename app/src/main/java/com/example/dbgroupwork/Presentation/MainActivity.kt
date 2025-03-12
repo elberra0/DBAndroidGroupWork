@@ -43,6 +43,7 @@ import com.example.dbgroupwork.Presentation.ViewModels.HomeViewModel
 import com.example.dbgroupwork.Presentation.Views.AppNavHost
 import com.example.dbgroupwork.Presentation.Views.BottomNavBarItem
 import com.example.dbgroupwork.Presentation.Views.CommunityScreen
+import com.example.dbgroupwork.Presentation.Views.GoogleMapView
 //import com.example.dbgroupwork.Presentation.Views.GoogleMapView
 import com.example.dbgroupwork.Presentation.Views.SettingsScreen
 
@@ -80,7 +81,7 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel(factory = DependencyProvider
 
 @Composable
 fun ProfileScreen() {
-   // GoogleMapView()
+   GoogleMapView()
 }
 
 @Composable
@@ -159,8 +160,8 @@ fun MainScreen() {
             modifier = Modifier.padding(paddingValues)
                 .background(Color(0xFF2C3E50))
         ) {
-            composable(BottomNavBarItem.Home.route) { HomeScreen() }
-            composable(BottomNavBarItem.Profile.route) { ProfileScreen() }
+            composable(BottomNavBarItem.Home.route) { ProfileScreen()}
+            composable(BottomNavBarItem.Profile.route) { HomeScreen()  }
             composable(BottomNavBarItem.Community.route) { CommunityScreen() }
             composable(BottomNavBarItem.Settings.route) { SettingsScreen() }
         }

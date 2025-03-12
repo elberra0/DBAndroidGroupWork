@@ -1,4 +1,4 @@
-package com.example.dbgroupwork.Data.remote
+package com.example.dbgroupwork.data.remote
 
 interface PlanRemoteDataSource {
    // suspend fun getPlanes(): List<Monument>

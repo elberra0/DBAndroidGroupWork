@@ -1,14 +1,9 @@
-package com.example.dbgroupwork.Data.local.firebase
+package com.example.dbgroupwork.data.local.firebase
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.example.dbgroupwork.Data.FireStoreLocalDataSource
+import com.example.dbgroupwork.data.FireStoreLocalDataSource
 //import com.example.dbgroupwork.Data.toDomain
 //import com.example.dbgroupwork.Domain.Models.Comment
-
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 
 class FireStoreLocalDataSourceImpl(private val firestore: FirebaseFirestore) : FireStoreLocalDataSource {
 /*

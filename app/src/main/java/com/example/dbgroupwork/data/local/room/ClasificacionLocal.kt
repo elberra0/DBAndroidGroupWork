@@ -1,4 +1,4 @@
-package com.example.dbgroupwork.Data.local.room
+package com.example.dbgroupwork.data.local.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

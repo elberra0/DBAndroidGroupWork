@@ -38,17 +38,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.dbgroupwork.Data.DataStoreManager
-import com.example.dbgroupwork.Data.Repository.UserRepositoryImpl
-import com.example.dbgroupwork.Domain.UseCaes.CheckUserToLoginUseCase
-import com.example.dbgroupwork.Domain.UseCaes.ModifyUserDataUseCase
-import com.example.dbgroupwork.Domain.UseCaes.SaveUserDataUseCase
-import com.example.dbgroupwork.Domain.UserRepository
-import com.example.dbgroupwork.Presentation.DependencyProvider.loginViewModel
 import com.example.dbgroupwork.Presentation.Feature.CustomButton
-import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
-import com.example.dbgroupwork.Presentation.ViewModels.SettingsScreenViewModel
-import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
+import com.example.dbgroupwork.Presentation.ViewModels.HomeViewModel
 import com.example.dbgroupwork.Presentation.Views.AppNavHost
 import com.example.dbgroupwork.Presentation.Views.BottomNavBarItem
 import com.example.dbgroupwork.Presentation.Views.CommunityScreen
@@ -68,14 +59,17 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(viewModel: HomeViewModel = viewModel(factory = DependencyProvider.homeViewModel)) {
+
     Column(
         modifier = Modifier.fillMaxSize()
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CustomButton(text = "Do test") { }
+        CustomButton(text = "Do test") {
+           // viewModel.insert()
+        }
 
         Spacer(Modifier.height(150.dp))
 

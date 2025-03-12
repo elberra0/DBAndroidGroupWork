@@ -1,7 +1,6 @@
-package com.example.dbgroupwork.Data.Repository
+package com.example.dbgroupwork.data.Repository
 
-import com.example.dbgroupwork.Data.DataStoreManager
-import com.example.dbgroupwork.Data.FireStoreLocalDataSource
+import com.example.dbgroupwork.data.DataStoreManager
 //import com.example.dbgroupwork.Domain.Models.Comment
 import com.example.dbgroupwork.Domain.UserRepository
 import com.example.dbgroupwork.Domain.Models.UserData

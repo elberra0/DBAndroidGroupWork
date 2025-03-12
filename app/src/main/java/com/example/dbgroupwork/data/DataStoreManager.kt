@@ -1,4 +1,4 @@
-package com.example.dbgroupwork.Data
+package com.example.dbgroupwork.data
 
 import android.content.Context
 import android.util.Log

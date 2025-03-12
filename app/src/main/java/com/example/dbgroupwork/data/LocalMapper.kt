@@ -1,6 +1,8 @@
-package com.example.dbgroupwork.Data
+package com.example.dbgroupwork.data
 
-import com.example.dbgroupwork.Data.local.firebase.CommentsData
+import com.example.dbgroupwork.data.local.room.PlanLocal
+import com.example.dbgroupwork.Domain.Models.Plan
+
 //import com.example.dbgroupwork.Domain.Models.Comment
 /*
 fun CommentsData.toDomain(): Comment {
@@ -8,3 +10,19 @@ fun CommentsData.toDomain(): Comment {
         id = id, comment = comment, author = author)
 }
  */
+
+fun Plan.toPlanLocal():PlanLocal {
+    return  PlanLocal(
+        id = id,
+        clasificacionid = clasificacionid,
+        clasificacion = clasificacion
+    )
+}
+
+fun PlanLocal.toPlan():Plan {
+    return  Plan(
+        id = id,
+        clasificacionid = clasificacionid,
+        clasificacion = clasificacion
+    )
+}

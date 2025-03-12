@@ -1,8 +1,6 @@
-package com.example.dbgroupwork.Data.local.room
+package com.example.dbgroupwork.data.local.room
 
-import androidx.room.Embedded
-import androidx.room.Relation
-
+/*
 data class PlanConClasificacion(
     @Embedded val plan: PlanLocal,
     @Relation(
@@ -11,3 +9,5 @@ data class PlanConClasificacion(
     )
     val clasificacion: ClasificacionLocal
 )
+
+ */

@@ -6,4 +6,12 @@ plugins {
     alias(libs.plugins.kotlin.serialization) apply true
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.google.services) apply false
+
+}
+buildscript {
+    dependencies {
+        classpath(libs.secrets.gradle.plugin)
+        classpath ("com.android.tools.build:gradle:8.6.0")
+    }
+
 }

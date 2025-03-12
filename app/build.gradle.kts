@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.google.services)
-
 }
 
 
@@ -48,7 +47,10 @@ android {
 
 
 dependencies {
-    ksp(libs.androidx.room.compiler)
+    implementation("androidx.room:room-compiler") {
+        exclude (group =  "com.intellij", module = "annotations")
+    }
+    implementation (libs.annotations)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -77,8 +79,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    implementation(libs.androidx.navigation.runtime.android)
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.maps.compose)
+    implementation(libs.play.services.maps)
+    implementation(libs.androidx.navigation.compose.v276)
     implementation(libs.material3)
-    implementation("com.google.maps.android:maps-compose:2.11.0")
-    implementation("com.google.maps.android:maps-compose-utils:2.11.0")
-    implementation("com.google.android.gms:play-services-location:21.0.1")
+    implementation(libs.maps.compose.utils.v2110)
+    implementation(libs.play.services.location.v2101)
+    implementation (libs.androidx.datastore.preferences)
 }

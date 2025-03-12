@@ -13,12 +13,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.LocationServices
-//import com.google.android.gms.maps.model
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.net.URL
-/*
+
 class MapViewModel {
 }
 
@@ -102,4 +102,3 @@ suspend fun GetNearbyGyms(location: LatLng,radius: Int = 2000):List<Gym>{
     }
 }
 
- */

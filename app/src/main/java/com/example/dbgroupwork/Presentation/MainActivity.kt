@@ -43,7 +43,7 @@ import com.example.dbgroupwork.Presentation.ViewModels.HomeViewModel
 import com.example.dbgroupwork.Presentation.Views.AppNavHost
 import com.example.dbgroupwork.Presentation.Views.BottomNavBarItem
 import com.example.dbgroupwork.Presentation.Views.CommunityScreen
-import com.example.dbgroupwork.Presentation.Views.GoogleMapView
+//import com.example.dbgroupwork.Presentation.Views.GoogleMapView
 import com.example.dbgroupwork.Presentation.Views.SettingsScreen
 
 class MainActivity : ComponentActivity() {
@@ -68,7 +68,8 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel(factory = DependencyProvider
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CustomButton(text = "Do test") {
-           // viewModel.insert()
+            viewModel.insert()
+            
         }
 
         Spacer(Modifier.height(150.dp))
@@ -79,7 +80,7 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel(factory = DependencyProvider
 
 @Composable
 fun ProfileScreen() {
-    GoogleMapView()
+   // GoogleMapView()
 }
 
 @Composable

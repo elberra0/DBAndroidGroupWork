@@ -1,5 +1,5 @@
 package com.example.dbgroupwork.Presentation.Views
-
+/*
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -73,3 +73,5 @@ fun GoogleMapView() {
         }
     }
 }
+
+ */

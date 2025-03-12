@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.google.services)
+
 }
 
 
@@ -75,4 +76,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.material3)
+    implementation("com.google.maps.android:maps-compose:2.11.0")
+    implementation("com.google.maps.android:maps-compose-utils:2.11.0")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 }

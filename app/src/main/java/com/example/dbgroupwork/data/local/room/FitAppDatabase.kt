@@ -8,18 +8,20 @@ import androidx.room.RoomDatabase
 @Database(entities = [PlanLocal::class], exportSchema = true , version = 1)
 abstract class FitAppDatabase: RoomDatabase() {
     abstract fun getDao(): PlanDao
-   // abstract fun getClasificacionDao(): ClasificacionDao
+    abstract fun getClasificacionDao(): ClasificacionDao
 
     companion object {
 
-        var db:FitAppDatabase? = null
+        var db: FitAppDatabase? = null
 
         fun provideDatabase(application: Context): FitAppDatabase {
-            if(db == null) {
-                db = Room.databaseBuilder(
-                    application,
-                    FitAppDatabase::class.java, "FitAppDb.db"
-                ).build()
+            if (db == null) {
+                synchronized(this) {
+                    db = Room.databaseBuilder(
+                        application,
+                        FitAppDatabase::class.java, "FitAppDb.db"
+                    ).build()
+                }
             }
             return db!!
         }

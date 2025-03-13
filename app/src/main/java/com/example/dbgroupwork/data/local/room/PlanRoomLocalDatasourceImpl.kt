@@ -1,8 +1,8 @@
 package com.example.dbgroupwork.data.local.room
 
 import com.example.dbgroupwork.data.local.PlanDatabaseDatasource
-import com.example.dbgroupwork.data.toPlan
-import com.example.dbgroupwork.data.toPlanLocal
+import com.example.dbgroupwork.Data.toPlan
+import com.example.dbgroupwork.Data.toPlanLocal
 import com.example.dbgroupwork.Domain.Models.Plan
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

@@ -11,6 +11,6 @@ interface UserRepository {
     suspend fun getCurrentUserId(): String?
     suspend fun getAllUserIds(): Set<String>
     suspend fun setCurrentUser(userId: String)
-   // suspend fun addComment(comment: Comment)
+    suspend fun addComment(comment: Comment)
     suspend fun getComments():Flow<List<Comment>>
 }

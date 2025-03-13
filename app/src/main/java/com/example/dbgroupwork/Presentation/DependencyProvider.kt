@@ -28,6 +28,7 @@ import com.example.dbgroupwork.Presentation.ViewModels.SettingsScreenViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 import com.example.dbgroupwork.data.FireStoreLocalDataSource
 import com.example.dbgroupwork.Data.local.firebase.FireStoreLocalDataSourceImpl
+import com.example.dbgroupwork.Domain.UseCaes.AddCommentUseCase
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name="users")
 object DependencyProvider {
@@ -38,10 +39,10 @@ object DependencyProvider {
             //  val userRepository: UserRepository = getRepository(context)
             val userRepository: UserRepository = getRepository(context)
             val getCommentsUseCase = GetCommentsUseCase(userRepository)
-          //  val addReviewUseCase = AddCommentUseCase(userRepository )
+            val addCommentUseCase = AddCommentUseCase(userRepository )
 
            // return CommunityViewModel(savedStateHandle, getReviewUseCase, addReviewUseCase) as T
-            return CommunityViewModel(savedStateHandle,getCommentsUseCase) as T
+            return CommunityViewModel(savedStateHandle,getCommentsUseCase,addCommentUseCase) as T
             }
         }
 

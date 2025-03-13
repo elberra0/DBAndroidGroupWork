@@ -1,11 +1,11 @@
 package com.example.dbgroupwork.Presentation.ViewModels
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
 import com.example.dbgroupwork.Domain.Models.Comment
-//import com.example.dbgroupwork.Domain.Models.Comment
 import com.example.dbgroupwork.Domain.UseCaes.AddCommentUseCase
 import com.example.dbgroupwork.Domain.UseCaes.GetCommentsUseCase
 import com.example.dbgroupwork.Presentation.Mapper.CommentUI
@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class CommunityViewModel (savedState:SavedStateHandle,
     private val getCommentsUseCase: GetCommentsUseCase,
-  //  private val addCommentUseCase: AddCommentUseCase
+    private val addCommentUseCase: AddCommentUseCase
 ):ViewModel(){
 
     private val _state: MutableStateFlow<CommentsState> = MutableStateFlow(CommentsState.Loading)
@@ -36,12 +36,17 @@ class CommunityViewModel (savedState:SavedStateHandle,
         }
     }
 
-    fun onAddReview(comment: String, author: String) {
-        viewModelScope.launch {
-           // val commentUser = Comment(id = 1, comment = comment, author = author)
-           // addCommentUseCase.addComment(commentUser)
+    fun addComment(comment: String, author: String,context: Context) {
+        if(comment.isEmpty()|| author.isEmpty()){
+            Toast.makeText(context, "Comment or author empty", Toast.LENGTH_SHORT).show()
+
+        }else{
+            viewModelScope.launch {
+                val commentUser = Comment(id = 1, comment = comment, author = author)
+                addCommentUseCase.addComment(commentUser)
             }
         }
+    }
 }
 sealed class CommentsState {
     data object Loading : CommentsState()

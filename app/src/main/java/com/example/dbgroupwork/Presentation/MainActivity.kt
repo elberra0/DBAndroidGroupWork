@@ -44,7 +44,6 @@ import com.example.dbgroupwork.Presentation.Views.AppNavHost
 import com.example.dbgroupwork.Presentation.Views.BottomNavBarItem
 import com.example.dbgroupwork.Presentation.Views.CommunityScreen
 import com.example.dbgroupwork.Presentation.Views.GoogleMapView
-//import com.example.dbgroupwork.Presentation.Views.GoogleMapView
 import com.example.dbgroupwork.Presentation.Views.SettingsScreen
 
 class MainActivity : ComponentActivity() {

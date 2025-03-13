@@ -11,7 +11,6 @@ fun CommentsData.toDomain(): Comment {
         id = id, comment = comment, author = author)
 }
 
-
 fun Plan.toPlanLocal():PlanLocal {
     return  PlanLocal(
         id = id,

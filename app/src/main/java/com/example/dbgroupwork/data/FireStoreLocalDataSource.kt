@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface FireStoreLocalDataSource {
     suspend fun getComments(): Flow<List<Comment>>
-   // suspend fun addComment(comment:Comment)
+    suspend fun addComment(comment:Comment)
 }

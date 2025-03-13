@@ -46,11 +46,11 @@ class UserRepositoryImpl(private val dataStoreManager: DataStoreManager,private 
     override suspend fun setCurrentUser(userId: String) {
         currentUserId = userId
     }
-/*
+
     override suspend fun addComment(comment: Comment) {
-        TODO("Not yet implemented")
+         fireStoreDataSource.addComment(comment)
     }
-*/
+
     override suspend fun getComments(): Flow<List<Comment>> {
         return fireStoreDataSource.getComments()
     }

@@ -78,11 +78,11 @@ fun CommentsSection(viewModel:CommunityViewModel = viewModel(factory = Dependenc
                 .verticalScroll(rememberScrollState()),
         ) {
 
-            val state = viewModel.state.collectAsState()
+            val state by viewModel.state.collectAsState()
 
-            when (val data = state.value) {
+            when (state) {
                 is CommentsState.Error -> {
-                    Text(data.message)
+                    Text(text = (state as CommentsState.Error).message)
                 }
 
                 CommentsState.Loading -> {
@@ -95,34 +95,43 @@ fun CommentsSection(viewModel:CommunityViewModel = viewModel(factory = Dependenc
                 }
 
                 is CommentsState.Success -> {
-                    //val monumentDetailUi = data.monumentDetail
                     var comment by remember { mutableStateOf("") }
                     var author by remember { mutableStateOf("") }
 
                     TextField(
                         value = comment,
                         onValueChange = { comment = it },
+                        label = { Text("Comentario") },
+                        modifier = Modifier.padding(bottom = 8.dp)
                     )
 
                     TextField(
                         value = author,
                         onValueChange = { author = it },
+                        label = { Text("Autor") },
+                        modifier = Modifier.padding(bottom = 16.dp)
                     )
 
-                    val reviews = data.reviews
-
-                    reviews.forEach { review ->
-                        Text(text = review.author, modifier = Modifier.padding(8.dp))
-                        Text(text = review.comment, modifier = Modifier.padding(8.dp))
+                    (state as CommentsState.Success).comments.forEach() { comentario ->
+                        Text(
+                            text = "Autor: ${comentario.author}",
+                            modifier = Modifier.padding(bottom = 4.dp)
+                        )
+                        Text(
+                            text = comentario.comment,
+                            modifier = Modifier.padding(bottom = 16.dp)
+                        )
                     }
 
-                    Button(
-                        onClick = {
-                           // viewModel.onAddReview(comment, author)
-                        },
-                    ) {
-                        Text(text = "Añadir")
-                    }
+                    //Button(
+                    //    onClick = {
+                    //        viewModel.addComment(Comment(author, comment))
+                    //        comment = ""
+                    //        author = ""
+                    //    },
+                    //) {
+                    //    Text(text = "Añadir")
+                    //}
                 }
             }
         }

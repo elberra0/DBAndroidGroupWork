@@ -17,6 +17,7 @@ import com.example.dbgroupwork.data.local.room.FitAppDatabase.Companion.provideD
 import com.example.dbgroupwork.data.local.room.PlanRoomLocalDatasourceImpl
 import com.example.dbgroupwork.Domain.PlanRepository
 import com.example.dbgroupwork.Domain.UseCaes.CheckUserToLoginUseCase
+import com.example.dbgroupwork.Domain.UseCaes.GetCommentsUseCase
 import com.example.dbgroupwork.Domain.UseCaes.ModifyUserDataUseCase
 import com.example.dbgroupwork.Domain.UseCaes.SaveUserDataUseCase
 import com.example.dbgroupwork.Domain.UserRepository
@@ -25,20 +26,22 @@ import com.example.dbgroupwork.Presentation.ViewModels.HomeViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.SettingsScreenViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
+import com.example.dbgroupwork.data.FireStoreLocalDataSource
+import com.example.dbgroupwork.Data.local.firebase.FireStoreLocalDataSourceImpl
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name="users")
-
 object DependencyProvider {
     val commentsViewModelFactory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
             val context = extras[APPLICATION_KEY]?.applicationContext!!
             val savedStateHandle = extras.createSavedStateHandle()
             //  val userRepository: UserRepository = getRepository(context)
-           // val getReviewUseCase = GetCommentsUseCase(userRepository)
+            val userRepository: UserRepository = getRepository(context)
+            val getCommentsUseCase = GetCommentsUseCase(userRepository)
           //  val addReviewUseCase = AddCommentUseCase(userRepository )
 
            // return CommunityViewModel(savedStateHandle, getReviewUseCase, addReviewUseCase) as T
-            return CommunityViewModel(savedStateHandle) as T
+            return CommunityViewModel(savedStateHandle,getCommentsUseCase) as T
             }
         }
 
@@ -105,12 +108,13 @@ object DependencyProvider {
         //val sqliteHelper = MonumentSqlLiteHelper(application)
         //// val monumentSqliteDatasource: MonumentDatabaseDatasource = MonumentSqliteDatasourceImpl(sqliteHelper.writableDatabase)
 
-       // val firebaseDatasourceImpl: FireStoreLocalDataSource = FireStoreLocalDataSourceImpl(firestore = context.getFirestore())
+        val firebaseDatasourceImpl: FireStoreLocalDataSource = FireStoreLocalDataSourceImpl()
         val dataStoreManager = DataStoreManager(context)
 
         val userRepository: UserRepository =
             UserRepositoryImpl(
-                dataStoreManager
+                dataStoreManager,
+                firebaseDatasourceImpl
             )
         return userRepository
         }

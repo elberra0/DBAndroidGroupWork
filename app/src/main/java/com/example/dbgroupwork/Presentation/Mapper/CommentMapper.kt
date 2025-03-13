@@ -1,7 +1,7 @@
 package com.example.dbgroupwork.Presentation.Mapper
 
-//import com.example.dbgroupwork.Domain.Models.Comment
-/*
+import com.example.dbgroupwork.Domain.Models.Comment
+
 fun Comment.toUi(): CommentUI {
     return CommentUI(
         id = id,
@@ -19,4 +19,3 @@ fun Comment.toDomain(): Comment {
 
 
 }
- */

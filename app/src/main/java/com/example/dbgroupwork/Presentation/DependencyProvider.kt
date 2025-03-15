@@ -10,12 +10,8 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.dbgroupwork.data.DataStoreManager
-import com.example.dbgroupwork.data.PlanRepositoryImpl
 import com.example.dbgroupwork.data.Repository.UserRepositoryImpl
-import com.example.dbgroupwork.data.local.PlanDatabaseDatasource
 import com.example.dbgroupwork.data.local.room.FitAppDatabase.Companion.provideDatabase
-import com.example.dbgroupwork.data.local.room.PlanRoomLocalDatasourceImpl
-import com.example.dbgroupwork.Domain.PlanRepository
 import com.example.dbgroupwork.Domain.UseCaes.CheckUserToLoginUseCase
 import com.example.dbgroupwork.Domain.UseCaes.GetCommentsUseCase
 import com.example.dbgroupwork.Domain.UseCaes.ModifyUserDataUseCase
@@ -28,7 +24,18 @@ import com.example.dbgroupwork.Presentation.ViewModels.SettingsScreenViewModel
 import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 import com.example.dbgroupwork.data.FireStoreLocalDataSource
 import com.example.dbgroupwork.Data.local.firebase.FireStoreLocalDataSourceImpl
+import com.example.dbgroupwork.Domain.FitAppRepository
 import com.example.dbgroupwork.Domain.UseCaes.AddCommentUseCase
+import com.example.dbgroupwork.data.FitAppRepositoryImpl
+import com.example.dbgroupwork.data.local.FitAppDatabaseDatasource
+import com.example.dbgroupwork.data.local.room.FitAppRoomLocalDatasourceImpl
+import com.example.dbgroupwork.data.remote.FitAppRemoteDataSource
+import com.example.dbgroupwork.data.remote.FitAppRemoteDataSourceImpl
+import com.example.dbgroupwork.data.remote.FitAppService
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
+import retrofit2.Retrofit
+import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name="users")
 object DependencyProvider {
@@ -81,8 +88,8 @@ object DependencyProvider {
         override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
 
             val context = extras[APPLICATION_KEY]?.applicationContext!!
-            val planRepository: PlanRepository = getRepositoryRoom(context)
-            return HomeViewModel(planRepository) as T
+            val fitAppRepository: FitAppRepository = getRepositoryRoom(context)
+            return HomeViewModel(fitAppRepository) as T
         }
     }
 
@@ -120,32 +127,29 @@ object DependencyProvider {
         return userRepository
         }
 
-    private fun getRepositoryRoom(context: Context): PlanRepository {
+    private fun getRepositoryRoom(context: Context): FitAppRepository {
 
-        //val json = Json {
-        //    ignoreUnknownKeys = true
-        //}
-        //val retrofit = Retrofit.Builder()
-        //    .baseUrl("https://www.zaragoza.es/sede/servicio/")
-        //    .addConverterFactory(
-        //        json.asConverterFactory(
-        //            "application/json".toMediaType(),
-        //        ),
-        //    )
-        //    .build()
+        val json = Json {
+            ignoreUnknownKeys = true
+        }
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://invoicegen.gear.host/api/FitApp/")
+            .addConverterFactory(
+                json.asConverterFactory(
+                    "application/json".toMediaType(),
+                ),
+            )
+            .build()
 //
-        //val service: MonumentService = retrofit.create(MonumentService::class.java)
+        val service: FitAppService = retrofit.create(FitAppService::class.java)
 //
-        //val monumentRemoteDataSource: MonumentRemoteDataSource = MonumentRemoteDataSourceImpl(service)
-        //val sharedPref = application.getSharedPreferences("Monuments", Context.MODE_PRIVATE)
-        val dataStore = context.dataStore
-        //val monumentPrefDataSource: PrefLocalDataSource = PrefDataStoreImpl(dataStore)
+        val monumentRemoteDataSource: FitAppRemoteDataSource = FitAppRemoteDataSourceImpl(service)
 
         val database = provideDatabase(context)
         val planDao = database.getDao()
-        val planRoomLocalDatasource: PlanDatabaseDatasource = PlanRoomLocalDatasourceImpl(planDao)
-        val planRepositoryImpl: PlanRepository = PlanRepositoryImpl(planRoomLocalDatasource)
-        return planRepositoryImpl
+        val fitRoomLocalDatasource: FitAppDatabaseDatasource = FitAppRoomLocalDatasourceImpl(planDao)
+        val fitAppRepositoryImpl: FitAppRepository = FitAppRepositoryImpl(monumentRemoteDataSource, fitRoomLocalDatasource)
+        return fitAppRepositoryImpl
     }
 
     private fun getSaveUserDataUseCase(){

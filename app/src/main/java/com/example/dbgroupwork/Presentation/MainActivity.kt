@@ -159,8 +159,8 @@ fun MainScreen() {
             modifier = Modifier.padding(paddingValues)
                 .background(Color(0xFF2C3E50))
         ) {
-            composable(BottomNavBarItem.Home.route) { ProfileScreen()}
-            composable(BottomNavBarItem.Profile.route) { HomeScreen()  }
+            composable(BottomNavBarItem.Home.route) { HomeScreen()  }
+            composable(BottomNavBarItem.Profile.route) { ProfileScreen() }
             composable(BottomNavBarItem.Community.route) { CommunityScreen() }
             composable(BottomNavBarItem.Settings.route) { SettingsScreen() }
         }

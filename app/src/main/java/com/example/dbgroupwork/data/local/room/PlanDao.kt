@@ -6,12 +6,16 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PlanDao {
-    @Query("select * from PlanRoom where id = :id")
-    suspend fun getPlanById(id: Int): PlanLocal?
-
     @Query("select * from PlanRoom")
     fun getAllPlan(): Flow<List<PlanLocal>>
 
     @Insert(onConflict = IGNORE)
-    suspend fun insertPlan(plan:PlanLocal)
+    suspend fun insertPlan(planes: List<PlanLocal>)
+
+    @Query("select * from PlanRoom where id = :id")
+    suspend fun getPlanById(id: Int): PlanLocal
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertPlanById(plan: PlanLocal)
+
 }

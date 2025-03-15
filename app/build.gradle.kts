@@ -59,10 +59,10 @@ android {
 
 
 dependencies {
-    implementation("androidx.room:room-compiler") {
+    /*implementation("androidx.room:room-compiler") {
         exclude (group =  "com.intellij", module = "annotations")
-    }
-    implementation (libs.annotations)
+    }*/
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -79,6 +79,7 @@ dependencies {
     implementation(libs.coil.network)
     implementation(libs.datastore)
     implementation(libs.room.ktx)
+
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
 
@@ -91,9 +92,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    implementation (libs.annotations)
     implementation(libs.androidx.navigation.runtime.android)
-    implementation(libs.androidx.room.common)
-    implementation(libs.androidx.room.ktx)
     implementation(libs.maps.compose)
     implementation(libs.play.services.maps)
     implementation(libs.androidx.navigation.compose.v276)

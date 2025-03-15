@@ -101,4 +101,7 @@ dependencies {
     implementation(libs.maps.compose.utils.v2110)
     implementation(libs.play.services.location.v2101)
     implementation (libs.androidx.datastore.preferences)
+    implementation("com.google.code.gson:gson:2.8.2")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
 }

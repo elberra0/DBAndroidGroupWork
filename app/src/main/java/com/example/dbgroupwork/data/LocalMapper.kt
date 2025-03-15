@@ -15,7 +15,8 @@ fun Plan.toPlanLocal():PlanLocal {
     return  PlanLocal(
         id = id,
         clasificacionid = clasificacionid,
-        clasificacion = clasificacion
+        clasificacion = clasificacion,
+        ejercicios = ejercicios
     )
 }
 
@@ -23,6 +24,7 @@ fun PlanLocal.toPlan():Plan {
     return  Plan(
         id = id,
         clasificacionid = clasificacionid,
-        clasificacion = clasificacion
+        clasificacion = clasificacion,
+        ejercicios = ejercicios
     )
 }

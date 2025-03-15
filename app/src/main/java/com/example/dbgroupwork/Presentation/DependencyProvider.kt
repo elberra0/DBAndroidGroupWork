@@ -35,6 +35,7 @@ import com.example.dbgroupwork.data.remote.FitAppService
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name="users")
@@ -134,13 +135,9 @@ object DependencyProvider {
         }
         val retrofit = Retrofit.Builder()
             .baseUrl("https://invoicegen.gear.host/api/FitApp/")
-            .addConverterFactory(
-                json.asConverterFactory(
-                    "application/json".toMediaType(),
-                ),
-            )
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
-//
+
         val service: FitAppService = retrofit.create(FitAppService::class.java)
 //
         val monumentRemoteDataSource: FitAppRemoteDataSource = FitAppRemoteDataSourceImpl(service)

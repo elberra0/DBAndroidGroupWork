@@ -9,7 +9,7 @@ interface PlanDao {
     @Query("select * from PlanRoom")
     fun getAllPlan(): Flow<List<PlanLocal>>
 
-    @Insert(onConflict = IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlan(planes: List<PlanLocal>)
 
     @Query("select * from PlanRoom where id = :id")

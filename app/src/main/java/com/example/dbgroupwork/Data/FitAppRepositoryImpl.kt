@@ -25,6 +25,7 @@ class FitAppRepositoryImpl(
         runCatching {
 
             val remotePlanes = remoteDataSource.getPlanes()
+            val Plan = remoteDataSource.getPlanById(2)
             fitAppDatabaseDatasource.insertPlan(remotePlanes)
         }
     }

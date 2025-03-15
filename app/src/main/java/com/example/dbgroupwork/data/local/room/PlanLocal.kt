@@ -8,5 +8,6 @@ import androidx.room.PrimaryKey
 data class PlanLocal(
     @PrimaryKey val id: Int,
     val clasificacionid: Int,
-    val clasificacion: String
+    val clasificacion: String,
+    val ejercicios: String
 )

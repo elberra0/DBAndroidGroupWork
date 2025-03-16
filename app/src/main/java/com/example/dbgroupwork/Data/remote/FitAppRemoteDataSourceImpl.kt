@@ -1,6 +1,7 @@
 package com.example.dbgroupwork.data.remote
 
 import androidx.room.TypeConverter
+import com.example.dbgroupwork.Data.toEjerciciosMap
 import com.example.dbgroupwork.Domain.Models.Clasificacion
 import com.example.dbgroupwork.Domain.Models.Plan
 import com.google.gson.Gson
@@ -36,7 +37,7 @@ fun PlanRemote.toDomain(): Plan {
         id = id,
         clasificacionid = clasificacionid,
         clasificacion = clasificacion,
-        ejercicios = fromEjerciciosMap(ejercicios)
+        ejercicios = ejercicios
     )
 }
 
@@ -44,11 +45,4 @@ fun PlanRemote.toDomain(): Plan {
 fun fromEjerciciosMap(value: Map<String, DayPlan>): String {
     val gson = Gson()
     return gson.toJson(value)
-}
-
-@TypeConverter
-fun toEjerciciosMap(value: String): Map<String, DayPlan> {
-    val type = object : TypeToken<Map<String, DayPlan>>() {}.type
-    val gson = Gson()
-    return gson.fromJson(value, type)
 }

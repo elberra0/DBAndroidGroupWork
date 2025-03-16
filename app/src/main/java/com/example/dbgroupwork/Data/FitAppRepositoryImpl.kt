@@ -1,6 +1,7 @@
 package com.example.dbgroupwork.data
 
 import com.example.dbgroupwork.Domain.FitAppRepository
+import com.example.dbgroupwork.Domain.Models.Clasificacion
 import com.example.dbgroupwork.Domain.Models.Plan
 import com.example.dbgroupwork.data.local.FitAppDatabaseDatasource
 import com.example.dbgroupwork.data.remote.FitAppRemoteDataSource
@@ -14,16 +15,17 @@ class FitAppRepositoryImpl(
 
     override suspend fun getAllPlan(): List<Plan> {
         val expired = true
-        updatePlanes()
+        if(expired){
+            updateFitAppDataFromRest()
+        }
+
         val localPlanes = fitAppDatabaseDatasource.getAllPlan().first()
-        //val lastRefreshDate = localPrefDataSource.getRefreshTimestamp().first()
-        //val expired = lastRefreshDate.isBefore(Instant.now().minus(Duration.ofDays(4)))
+
         return localPlanes
     }
 
-    private suspend fun updatePlanes() {
+    private suspend fun updateFitAppDataFromRest() {
         runCatching {
-
             val remotePlanes = remoteDataSource.getPlanes()
             val clasificaciones = remoteDataSource.getClasificaciones()
             fitAppDatabaseDatasource.insertClasificacion(clasificaciones)
@@ -31,16 +33,23 @@ class FitAppRepositoryImpl(
         }
     }
 
-/*
-    override suspend fun update(plan: Plan) {
-        planDatabaseDatasource.update(plan)
-    }
-
-    override suspend fun delete(plan: Plan) {
-        planDatabaseDatasource.delete(plan)
-    }
-*/
     override suspend fun getPlanById(planId: Int): Plan? {
         return fitAppDatabaseDatasource.getPlanById(planId)
+    }
+
+    override suspend fun getAllClasificacion(): List<Clasificacion> {
+        val expired = true
+        if(expired){
+            updateFitAppDataFromRest()
+        }
+
+        val localClasificaciones = fitAppDatabaseDatasource.getAllClasificacion().first()
+        //val lastRefreshDate = localPrefDataSource.getRefreshTimestamp().first()
+        //val expired = lastRefreshDate.isBefore(Instant.now().minus(Duration.ofDays(4)))
+        return localClasificaciones
+    }
+
+    override suspend fun getClasificacionById(clasificacionId: Int): Clasificacion? {
+        return fitAppDatabaseDatasource.getClasificacionById(clasificacionId)
     }
 }

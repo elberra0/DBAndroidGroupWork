@@ -28,6 +28,7 @@ import com.example.dbgroupwork.Domain.FitAppRepository
 import com.example.dbgroupwork.Domain.UseCaes.AddCommentUseCase
 import com.example.dbgroupwork.Domain.UseCaes.GetPlanByIdUseCase
 import com.example.dbgroupwork.Presentation.ViewModels.DoTestViewModel
+import com.example.dbgroupwork.Presentation.ViewModels.MyPlanViewModel
 import com.example.dbgroupwork.Presentation.Views.DoTestView
 import com.example.dbgroupwork.data.FitAppRepositoryImpl
 import com.example.dbgroupwork.data.local.FitAppDatabaseDatasource
@@ -102,8 +103,18 @@ object DependencyProvider {
 
             val context = extras[APPLICATION_KEY]?.applicationContext!!
             val fitAppRepository: FitAppRepository = getRepositoryRoom(context)
-            val getMonumentByIdUseCase = GetPlanByIdUseCase(fitAppRepository)
-            return DoTestViewModel(getMonumentByIdUseCase) as T
+            val getPlanByIdUseCase = GetPlanByIdUseCase(fitAppRepository)
+            return DoTestViewModel(getPlanByIdUseCase) as T
+        }
+    }
+
+    val myPlanViewModel: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+
+            val context = extras[APPLICATION_KEY]?.applicationContext!!
+            val fitAppRepository: FitAppRepository = getRepositoryRoom(context)
+            val getPlanByIdUseCase = GetPlanByIdUseCase(fitAppRepository)
+            return MyPlanViewModel(getPlanByIdUseCase) as T
         }
     }
 

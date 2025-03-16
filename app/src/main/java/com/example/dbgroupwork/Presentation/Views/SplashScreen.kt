@@ -71,5 +71,9 @@ fun AppNavHost() {
         composable("dotest") {
             DoTestView(navController)
         }
+
+        composable("myplan") {
+            MyPlanView(navController)
+        }
     }
 }

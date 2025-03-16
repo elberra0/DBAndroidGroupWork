@@ -53,7 +53,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = viewMode
 
         Spacer(Modifier.height(150.dp))
 
-        CustomButton(text = "My plan") { }
+        CustomButton(text = "My plan") {navController.navigate("myplan") }
     }
 }
 

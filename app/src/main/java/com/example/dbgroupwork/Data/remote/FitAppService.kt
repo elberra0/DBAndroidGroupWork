@@ -1,4 +1,5 @@
 package com.example.dbgroupwork.data.remote
+import com.example.dbgroupwork.Domain.Models.Clasificacion
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import retrofit2.http.GET
@@ -10,18 +11,21 @@ interface FitAppService {
 
     @GET("GetPlanById")
     suspend fun getPlanById(@Query("id") planId: Int): PlanRemote
-}
 
+    @GET("getClasificaciones")
+    suspend fun getClasificaciones(): List<ClasificacionRemote>
+}
 @Serializable
-data class PlanRemote(
+data class ClasificacionRemote(
     @SerialName("id") val id: Int,
-    @SerialName("clasificacionid") val clasificacionid: Int,
-    @SerialName("clasificacion") val clasificacion: String,
-    @SerialName("ejercicios") val ejercicios: Map<String, DayPlan>
+    @SerialName("puntajeminimo")val puntajeminimo: Int,
+    @SerialName("puntajemaximo")val puntajemaximo: Int,
+    @SerialName("descripcion")val descripcion: String,
+    @SerialName("nombre")val nombre: String
 )
 
 @Serializable
-data class WorkoutPlan(
+data class PlanRemote(
     @SerialName("id") val id: Int,
     @SerialName("clasificacionid") val clasificacionid: Int,
     @SerialName("clasificacion") val clasificacion: String,

@@ -1,6 +1,7 @@
 package com.example.dbgroupwork.data.remote
 
 import androidx.room.TypeConverter
+import com.example.dbgroupwork.Domain.Models.Clasificacion
 import com.example.dbgroupwork.Domain.Models.Plan
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -14,18 +15,23 @@ class FitAppRemoteDataSourceImpl(private val fitAppService: FitAppService): FitA
     override suspend fun getPlanById(id: Int): Plan {
         return  fitAppService.getPlanById(id).toDomain()
     }
+
+    override suspend fun getClasificaciones(): List<Clasificacion> {
+        return fitAppService.getClasificaciones().map { clasificaciones -> clasificaciones.toDomain() }
+    }
 }
 
-fun PlanRemote.toDomain(): Plan {
-    return Plan(
+fun ClasificacionRemote.toDomain(): Clasificacion {
+    return Clasificacion(
         id = id,
-        clasificacionid = clasificacionid,
-        clasificacion = clasificacion,
-        ejercicios = fromEjerciciosMap(ejercicios)
+        nombre = nombre,
+        descripcion = descripcion,
+        puntajemaximo = puntajemaximo,
+        puntajeminimo = puntajeminimo
     )
 }
 
-fun WorkoutPlan.toDomain(): Plan {
+fun PlanRemote.toDomain(): Plan {
     return Plan(
         id = id,
         clasificacionid = clasificacionid,

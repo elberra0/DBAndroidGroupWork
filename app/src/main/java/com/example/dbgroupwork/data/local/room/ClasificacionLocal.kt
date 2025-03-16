@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "ClasificacionRoom")
 data class ClasificacionLocal(
     @PrimaryKey val id: Int,
-    val puntajeMinimo: Int,
-    val puntajeMaximo: Int,
+    val puntajeminimo: Int,
+    val puntajemaximo: Int,
     val descripcion: String,
     val nombre: String
 )

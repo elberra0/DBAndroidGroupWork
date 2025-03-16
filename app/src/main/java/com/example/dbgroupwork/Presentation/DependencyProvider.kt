@@ -143,8 +143,9 @@ object DependencyProvider {
         val monumentRemoteDataSource: FitAppRemoteDataSource = FitAppRemoteDataSourceImpl(service)
 
         val database = provideDatabase(context)
-        val planDao = database.getDao()
-        val fitRoomLocalDatasource: FitAppDatabaseDatasource = FitAppRoomLocalDatasourceImpl(planDao)
+        val planDao = database.getPlanDao()
+        val clasificacionDao = database.getClasificacionDao()
+        val fitRoomLocalDatasource: FitAppDatabaseDatasource = FitAppRoomLocalDatasourceImpl(planDao,clasificacionDao)
         val fitAppRepositoryImpl: FitAppRepository = FitAppRepositoryImpl(monumentRemoteDataSource, fitRoomLocalDatasource)
         return fitAppRepositoryImpl
     }

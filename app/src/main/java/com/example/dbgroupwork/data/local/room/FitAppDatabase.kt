@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [PlanLocal::class], exportSchema = true , version = 3)
+@Database(entities = [PlanLocal::class, ClasificacionLocal::class], exportSchema = true , version = 10)
 abstract class FitAppDatabase: RoomDatabase() {
-    abstract fun getDao(): PlanDao
-    //abstract fun getClasificacionDao(): ClasificacionDao
+    abstract fun getPlanDao(): PlanDao
+    abstract fun getClasificacionDao(): ClasificacionDao
 
     companion object {
 

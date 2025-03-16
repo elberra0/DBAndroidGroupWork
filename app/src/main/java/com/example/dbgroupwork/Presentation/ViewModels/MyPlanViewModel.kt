@@ -11,6 +11,6 @@ class MyPlanViewModel (private val getPlanByIdUseCase: GetPlanByIdUseCase):ViewM
     var myPlan: Plan? = null
 
    suspend fun getMyPlan() {
-       myPlan = getPlanByIdUseCase.getPlanById(1)
+       myPlan = getPlanByIdUseCase.getPlanById(3)
     }
 }

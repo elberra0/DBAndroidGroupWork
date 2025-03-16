@@ -85,7 +85,7 @@ fun MyPlanView(navController: NavController, viewModel: MyPlanViewModel = viewMo
             modifier = Modifier.padding(bottom = 16.dp)
         )
         Text(
-            text = viewModel.myPlan!!.ejercicios["miercoles"]!!.tipo,
+            text = viewModel.myPlan!!.ejercicios[day]!!.tipo,
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             color = Color.White,
@@ -94,7 +94,7 @@ fun MyPlanView(navController: NavController, viewModel: MyPlanViewModel = viewMo
         )
 
         Text(
-            text = "Ejercicios de tipo ${viewModel.myPlan!!.ejercicios["martes"]!!.tipo}:",
+            text = "Ejercicios de tipo ${viewModel.myPlan!!.ejercicios[day]!!.tipo}:",
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             color = Color.White,
@@ -103,7 +103,7 @@ fun MyPlanView(navController: NavController, viewModel: MyPlanViewModel = viewMo
         )
 
         Text(
-            text = if(viewModel.myPlan!!.ejercicios["martes"]!!.calentamiento.isNullOrEmpty()) "" else "Calentamiento ${viewModel.myPlan!!.ejercicios["martes"]!!.calentamiento}:",
+            text = if(viewModel.myPlan!!.ejercicios[day]!!.calentamiento.isNullOrEmpty()) "" else "Calentamiento ${viewModel.myPlan!!.ejercicios[day]!!.calentamiento}.",
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             color = Color.White,
@@ -113,7 +113,7 @@ fun MyPlanView(navController: NavController, viewModel: MyPlanViewModel = viewMo
 
 
         Column {
-            viewModel.myPlan!!.ejercicios["martes"]!!.ejercicios.forEach { ejercicio ->
+            viewModel.myPlan!!.ejercicios[day]!!.ejercicios.forEach { ejercicio ->
                 OutlinedTextField(
                     value =  if(ejercicio.repeticiones.isNullOrEmpty()) "" else "De ${ejercicio.repeticiones} repeticiones en ${ejercicio.series} series. "  ,
                     onValueChange = {  },

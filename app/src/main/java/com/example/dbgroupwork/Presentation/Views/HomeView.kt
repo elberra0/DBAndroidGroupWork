@@ -57,27 +57,3 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = viewMode
     }
 }
 
-@Composable
-fun GoToDoTestScreen(navController: NavController){
-    Row(modifier = Modifier,
-        verticalAlignment = Alignment.CenterVertically){
-        Text(
-            text = "Don't have an account? ",
-            fontSize = 15.sp,
-            color = Color.Gray,
-            textAlign = TextAlign.Left
-        )
-        Button(onClick = {navController.navigate("dotest") },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Transparent,
-                contentColor = Color(0xFF2C3E50)
-            )) {
-            Text(text = "Sign up",
-                fontSize = 15.sp,
-                color = Color(0xFF007AFF),
-                textAlign = TextAlign.Left,
-            )
-        }
-    }
-}
-

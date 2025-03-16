@@ -60,7 +60,8 @@ fun AppNavHost() {
             )
         }
         composable("main") {
-            HomeScreen(navController)
+            MainScreen(navController)
+           // HomeScreen(navController)
         }
         composable("login") {
             LoginScreen(navController)

@@ -129,7 +129,7 @@ fun BottomNavBar(navController: NavController) {
 }
 
 @Composable
-fun MainScreen() {
+fun MainScreen(_navController: NavController) {
     val navController = rememberNavController()
 
     Scaffold(
@@ -141,7 +141,7 @@ fun MainScreen() {
             modifier = Modifier.padding(paddingValues)
                 .background(Color(0xFF2C3E50))
         ) {
-            composable(BottomNavBarItem.Home.route) { HomeScreen(navController)  }
+            composable(BottomNavBarItem.Home.route) { HomeScreen(_navController)  }
             composable(BottomNavBarItem.Profile.route) { ProfileScreen() }
             composable(BottomNavBarItem.Community.route) { CommunityScreen() }
             composable(BottomNavBarItem.Settings.route) { SettingsScreen() }

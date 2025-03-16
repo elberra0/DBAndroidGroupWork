@@ -31,6 +31,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.TextField
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -44,6 +45,7 @@ import com.example.dbgroupwork.Presentation.Views.AppNavHost
 import com.example.dbgroupwork.Presentation.Views.BottomNavBarItem
 import com.example.dbgroupwork.Presentation.Views.CommunityScreen
 import com.example.dbgroupwork.Presentation.Views.GoogleMapView
+import com.example.dbgroupwork.Presentation.Views.HomeScreen
 import com.example.dbgroupwork.Presentation.Views.SettingsScreen
 
 class MainActivity : ComponentActivity() {
@@ -52,28 +54,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DBGroupWorkTheme {
-               AppNavHost()
+                AppNavHost()
             }
         }
-    }
-}
-
-@Composable
-fun HomeScreen(viewModel: HomeViewModel = viewModel(factory = DependencyProvider.homeViewModel)) {
-
-    Column(
-        modifier = Modifier.fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        CustomButton(text = "Do test") {
-            viewModel.insert()
-        }
-
-        Spacer(Modifier.height(150.dp))
-
-        CustomButton(text = "My plan") { }
     }
 }
 
@@ -158,7 +141,7 @@ fun MainScreen() {
             modifier = Modifier.padding(paddingValues)
                 .background(Color(0xFF2C3E50))
         ) {
-            composable(BottomNavBarItem.Home.route) { HomeScreen()  }
+            composable(BottomNavBarItem.Home.route) { HomeScreen(navController)  }
             composable(BottomNavBarItem.Profile.route) { ProfileScreen() }
             composable(BottomNavBarItem.Community.route) { CommunityScreen() }
             composable(BottomNavBarItem.Settings.route) { SettingsScreen() }

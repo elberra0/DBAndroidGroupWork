@@ -60,7 +60,7 @@ fun AppNavHost() {
             )
         }
         composable("main") {
-            MainScreen()
+            HomeScreen(navController)
         }
         composable("login") {
             LoginScreen(navController)
@@ -69,7 +69,7 @@ fun AppNavHost() {
             SignUpScreen(navController)
         }
         composable("dotest") {
-
+            DoTestView(navController)
         }
     }
 }

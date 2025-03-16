@@ -26,6 +26,9 @@ import com.example.dbgroupwork.data.FireStoreLocalDataSource
 import com.example.dbgroupwork.Data.local.firebase.FireStoreLocalDataSourceImpl
 import com.example.dbgroupwork.Domain.FitAppRepository
 import com.example.dbgroupwork.Domain.UseCaes.AddCommentUseCase
+import com.example.dbgroupwork.Domain.UseCaes.GetPlanByIdUseCase
+import com.example.dbgroupwork.Presentation.ViewModels.DoTestViewModel
+import com.example.dbgroupwork.Presentation.Views.DoTestView
 import com.example.dbgroupwork.data.FitAppRepositoryImpl
 import com.example.dbgroupwork.data.local.FitAppDatabaseDatasource
 import com.example.dbgroupwork.data.local.room.FitAppRoomLocalDatasourceImpl
@@ -91,6 +94,16 @@ object DependencyProvider {
             val context = extras[APPLICATION_KEY]?.applicationContext!!
             val fitAppRepository: FitAppRepository = getRepositoryRoom(context)
             return HomeViewModel(fitAppRepository) as T
+        }
+    }
+
+    val doTestViewModel: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+
+            val context = extras[APPLICATION_KEY]?.applicationContext!!
+            val fitAppRepository: FitAppRepository = getRepositoryRoom(context)
+            val getMonumentByIdUseCase = GetPlanByIdUseCase(fitAppRepository)
+            return DoTestViewModel(getMonumentByIdUseCase) as T
         }
     }
 

@@ -68,5 +68,8 @@ fun AppNavHost() {
         composable("register") {
             SignUpScreen(navController)
         }
+        composable("dotest") {
+
+        }
     }
 }

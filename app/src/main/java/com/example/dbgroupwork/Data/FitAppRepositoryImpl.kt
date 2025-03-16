@@ -33,7 +33,11 @@ class FitAppRepositoryImpl(
         }
     }
 
-    override suspend fun getPlanById(planId: Int): Plan? {
+    override suspend fun getPlanById(planId: Int): Plan {
+        val expired = true
+        if(expired){
+            updateFitAppDataFromRest()
+        }
         return fitAppDatabaseDatasource.getPlanById(planId)
     }
 
@@ -49,7 +53,7 @@ class FitAppRepositoryImpl(
         return localClasificaciones
     }
 
-    override suspend fun getClasificacionById(clasificacionId: Int): Clasificacion? {
+    override suspend fun getClasificacionById(clasificacionId: Int): Clasificacion {
         return fitAppDatabaseDatasource.getClasificacionById(clasificacionId)
     }
 }

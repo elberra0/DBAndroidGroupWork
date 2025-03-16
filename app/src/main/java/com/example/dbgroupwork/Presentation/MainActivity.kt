@@ -69,7 +69,6 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel(factory = DependencyProvider
     ) {
         CustomButton(text = "Do test") {
             viewModel.insert()
-            
         }
 
         Spacer(Modifier.height(150.dp))

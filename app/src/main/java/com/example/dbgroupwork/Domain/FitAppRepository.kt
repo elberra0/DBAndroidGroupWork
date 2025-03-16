@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface FitAppRepository {
     suspend fun getAllPlan(): List<Plan>
-    suspend fun getPlanById(planId: Int): Plan?
+    suspend fun getPlanById(planId: Int): Plan
     suspend fun getAllClasificacion(): List<Clasificacion>
-    suspend fun getClasificacionById(clasificacionId: Int): Clasificacion?
+    suspend fun getClasificacionById(clasificacionId: Int): Clasificacion
 }

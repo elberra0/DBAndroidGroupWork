@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -28,17 +30,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.dbgroupwork.Presentation.DependencyProvider
 import com.example.dbgroupwork.Presentation.SettingsTextField
-import com.example.dbgroupwork.Presentation.ViewModels.LoginViewModel
+import com.example.dbgroupwork.Presentation.ViewModels.DoTestViewModel
+import com.example.dbgroupwork.Presentation.ViewModels.SignupViewModel
 
 @Composable
-fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewModel(factory = DependencyProvider.loginViewModel) ){
-    LogInTopText()
-
+fun DoTestView(viewModel: DoTestViewModel = viewModel(factory = DependencyProvider.doTestViewModel)){
+    DoTestTopText()
+/*
     Column(
         modifier = Modifier.fillMaxSize()
             .verticalScroll(rememberScrollState()),
@@ -47,17 +49,12 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
     ) {
         val context = LocalContext.current
 
-        val emailOrUsername by viewModel.emailOrUsername.collectAsState()
-        val password by viewModel.password.collectAsState()
-
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(emailOrUsername, onValueChange = {viewModel.onEmailOrUsernameChanged(it)}, "Username/email", Icons.Filled.AccountBox,true,false)
+        SettingsTextField(email, onValueChange = { viewModel.onEmailChanged(it) }, "Email", Icons.Filled.Email,true,false)
         Spacer(modifier = Modifier.height(20.dp))
-        SettingsTextField(password, onValueChange = {viewModel.onPasswordChanged(it)}, "Password", Icons.Filled.Lock,true,true)
-        Spacer(modifier = Modifier.height(50.dp))
 
         Button(
-            onClick = { viewModel.loginUserData(context,navController) },
+            onClick = { viewModel.saveUserData(context)},
             modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .height(50.dp),
@@ -67,16 +64,15 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
             )
 
         ) {
-            Text(text = "Log in!", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+            Text(text = "do test", fontSize = 16.sp, fontWeight = FontWeight.Bold)
         }
-
         Spacer(modifier = Modifier.height(50.dp))
-        GoToRegisterScreen(navController)
+        GoToHomeScreen(navController)
     }
+    */
 }
-
 @Composable
-fun LogInTopText(){
+fun DoTestTopText(){
     Box(modifier = Modifier.fillMaxSize()){
         Column(modifier = Modifier
             .align(Alignment.TopStart)
@@ -85,7 +81,7 @@ fun LogInTopText(){
             Spacer(modifier = Modifier.height(100.dp))
 
             Text(
-                text = "Log in",
+                text = "Do test",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
@@ -94,7 +90,7 @@ fun LogInTopText(){
             )
 
             Text(
-                text = "Log in with your username or email",
+                text = "Determine the exercise plan",
                 fontSize = 15.sp,
                 color = Color.Gray,
                 textAlign = TextAlign.Left,
@@ -105,21 +101,21 @@ fun LogInTopText(){
 }
 
 @Composable
-fun GoToRegisterScreen(navController: NavController){
+fun GoToHomeScreen(navController: NavController){
     Row(modifier = Modifier,
         verticalAlignment = Alignment.CenterVertically){
         Text(
-            text = "Don't have an account? ",
+            text = "Already have an account? ",
             fontSize = 15.sp,
             color = Color.Gray,
             textAlign = TextAlign.Left
         )
-        Button(onClick = {navController.navigate("register") },
+        Button(onClick = { navController.navigate("main") },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
                 contentColor = Color(0xFF2C3E50)
             )) {
-            Text(text = "Sign up",
+            Text(text = "Log in",
                 fontSize = 15.sp,
                 color = Color(0xFF007AFF),
                 textAlign = TextAlign.Left,

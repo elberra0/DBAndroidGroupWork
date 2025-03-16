@@ -36,7 +36,7 @@ class FitAppRoomLocalDatasourceImpl(private val planDao: PlanDao, private  val c
         return clasificacionDao.getAllClasificacion().map { clasificaciones ->  clasificaciones.map { it.toClasificacion() } }
     }
 
-    override suspend fun getClasificacionById(clasificacionId: Int): Clasificacion? {
+    override suspend fun getClasificacionById(clasificacionId: Int): Clasificacion {
         return clasificacionDao.getClasificacionById(clasificacionId).toClasificacion()
     }
 }

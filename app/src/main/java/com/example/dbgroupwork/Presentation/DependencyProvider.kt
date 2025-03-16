@@ -104,7 +104,7 @@ object DependencyProvider {
             val context = extras[APPLICATION_KEY]?.applicationContext!!
             val fitAppRepository: FitAppRepository = getRepositoryRoom(context)
             val getPlanByIdUseCase = GetPlanByIdUseCase(fitAppRepository)
-            return DoTestViewModel(getPlanByIdUseCase) as T
+            return DoTestViewModel(getPlanByIdUseCase,context) as T
         }
     }
 
@@ -114,7 +114,7 @@ object DependencyProvider {
             val context = extras[APPLICATION_KEY]?.applicationContext!!
             val fitAppRepository: FitAppRepository = getRepositoryRoom(context)
             val getPlanByIdUseCase = GetPlanByIdUseCase(fitAppRepository)
-            return MyPlanViewModel(getPlanByIdUseCase) as T
+            return MyPlanViewModel(getPlanByIdUseCase,context) as T
         }
     }
 

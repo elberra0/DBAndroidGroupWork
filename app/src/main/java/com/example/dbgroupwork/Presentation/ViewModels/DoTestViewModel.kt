@@ -1,10 +1,15 @@
 package com.example.dbgroupwork.Presentation.ViewModels
+import android.content.Context
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import com.example.dbgroupwork.Domain.UseCaes.GetPlanByIdUseCase
+import com.example.dbgroupwork.data.AppDataSharedPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class DoTestViewModel (private val getPlanByIdUseCase: GetPlanByIdUseCase):ViewModel() {
+class DoTestViewModel (private val getPlanByIdUseCase: GetPlanByIdUseCase, private val context: Context):ViewModel() {
+
+    private val _appDataSharedPreferences = AppDataSharedPreferences()
     private val _age = MutableStateFlow(0)
     val age: StateFlow<Int> = _age
 
@@ -71,12 +76,14 @@ class DoTestViewModel (private val getPlanByIdUseCase: GetPlanByIdUseCase):ViewM
                 in "Maintain weight" -> 2
                 else -> 3
             }
-
         var planId = 0
+
         when (puntosPuntos) {
             in 0..7 -> planId = 3
             in 8..11 -> planId = 2
             in 12..99 -> planId = 1
         }
+
+        _appDataSharedPreferences.savePlan(context, planId)
     }
 }
